@@ -1,0 +1,14 @@
+extends layout
+block content
+    script(src='/javascripts/removeRubricGetNames.js')
+    h3.
+        Remove Rubric
+        
+    form#form_remove_rubric(name='removeRubric', method='post', action='/rubrics/removeRubric')
+        br
+        span Rubric Name
+        span &nbsp;
+        select#input_rubric(name='name')
+        br
+        br
+        button#submit_class(type='submit') submit

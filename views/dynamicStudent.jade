@@ -1,0 +1,103 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/bootstrap-css/bootstrap-switch.min.css')
+    link(rel='stylesheet', href='/stylesheets/dynamicStudent.css')
+    script(src='/javascripts/bootstrap-js/bootstrap-switch.min.js')
+    script(src='/javascripts/dynamicStudent.js')
+    script.
+        var enrolledClasses = !{JSON.stringify(enrolledClasses)}
+        var studentData = !{JSON.stringify(studentData)}
+    -student = studentData
+    
+    br
+    div(align='center')
+        h3= name
+        h3.headerID= 'ID: ' + id
+        hr
+    div.list-group(id='studentDataList')
+        li.list-group-item
+            |First Name: #{student.fName}
+        li.list-group-item
+            |Middle Name: #{student.mName}
+        li.list-group-item
+            |Last Name: #{student.lName}
+        li.list-group-item
+            |Date of Birth: #{student.dob}
+        li.list-group-item
+            |Gender: 
+            #gender #{student.gender}
+        li.list-group-item
+            |Special Education: 
+            #sped #{student.sped}
+        li.list-group-item   
+            |English Second Language: 
+            #ell #{student.ell}
+        li.list-group-item  
+            |Grade: #{student.grade}
+        li.list-group-item  
+            |Graduation Year:  #{student.graduationYear}
+        li.list-group-item    
+            |GPA: #{student.gpa}
+        li.list-group-item    
+            |Cohort: #{student.cohort}
+        li.list-group-item
+            |Reports: #{student.reportIDs.length}
+    
+    -actionLink = '/studentList/' + studentData.id
+    
+    //Creates the update student data list
+    div#updateForm(align='center')
+        form.form_update(name="updateStudent", method="post", action=actionLink)
+            span First Name 
+            input.input_data(type="text", placeholder="First Name", name="fName", value= '#{student.fName}', required)
+            br
+            br
+            span Middle Name 
+            input.input_data(type="text", placeholder="Middle name", name="mName", value= '#{student.mName}')
+            br
+            br
+            span Last Name 
+            input.input_data(type="text", placeholder="Last Name", name="lName", value= '#{student.lName}', required)
+            br
+            br
+            span Gender 
+            select(name='gender')
+                option(value='M') Male
+                option(value='F') Female
+            br
+            br
+            span Special Education 
+            select(name='sped')
+                option(value='n') No
+                option(value='y') Yes
+            br
+            br
+            span English Second Language 
+            select(name='ell')
+                option(value='n') No
+                option(value='y') Yes
+            br
+            br
+            span Grade 
+            select.input_data(name='grade')
+                option(value='9') Freshman
+                option(value='10') Sophomore
+                option(value='11') Junior
+                option(value='12') Senior
+            br
+            br
+            span Cohort 
+            input.input_data(type='text', placeholder='Cohort', name='cohort', value='#{student.cohort}', required)
+            br
+            br
+            button.submit_student(type='submit' onsubmit='') submit
+    div#enrolled(align='left')
+        | Classes Enrolled
+        each classes, i in enrolledClasses
+            br
+            |• #{classes.name}
+    br
+    br
+    div(align='center')
+        //Flip switch feature
+        input(type='checkbox', name='updateSwitch', id='switch')

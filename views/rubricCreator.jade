@@ -1,0 +1,21 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/rubricCreator.css')
+    script(src='/javascripts/rubric-creator.js')
+    br
+    br
+    br
+    div#rubric
+        table.table.table-bordered.table-hover(border='1')
+            tr#row-templates
+                td#col0
+            tr#scores
+                th#col0
+                    input#title(placeholder='Rubric Title')
+    br
+    br
+    button.bttn-unite.bttn-xs.bttn-primary.add-col Add Column
+    br
+    button.bttn-unite.bttn-xs.bttn-primary.add-row Add Row
+    br
+    button.bttn-unite.bttn-xs.bttn-primary(id='save-rubric') Save Rubric

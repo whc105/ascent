@@ -1,0 +1,23 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/removeStudents.css')
+    -className = className
+    
+    br
+    br
+    h3.title Remove Students from 
+    h3.
+        #{className}
+    br
+    br
+    form#remove_students_from_class(name='removeStudent', method='post', action='/classes/' + className + '/removeStudents')
+        |Select the students you want to remove from #{className}
+        each students, i in availableStudents
+            br
+            br
+            input(type='checkbox', name='#{students.id}')
+            | Name: #{students.fName} #{students.mName} #{students.lName}
+            br
+            | ID Number: #{students.id}
+        br
+        button#submit_student(type='submit') submit

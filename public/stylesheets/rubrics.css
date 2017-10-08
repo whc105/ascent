@@ -1,0 +1,42 @@
+#rubricSearch{
+   text-align:center;
+}
+
+.clearfix {
+    overflow: auto;
+}
+
+p:not(:empty) {
+    display: block;
+    border-style: solid;
+    border-color: black;
+    width: 100%;
+    padding: 4px;
+    margin: 4px;
+}
+
+td {
+    width: 30%;
+}
+
+select {
+    display: none;
+}
+
+/*rubric print*/
+@media print {
+    body {
+        visibility: hidden;
+    }
+    #printDiv, #printDiv {
+        visibility: visible;
+    }
+    #printDiv {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    @page {
+        size: landscape
+    }
+}

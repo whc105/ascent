@@ -1,0 +1,55 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/assessmentPage.css')
+    script(src='/javascripts/loadRubric.js')
+    script(src='/javascripts/grading.js')
+    script.
+        console.log(!{JSON.stringify(assignmentData)})
+    div(id='top-section')
+        #content
+            h2 
+                assignmentname= assignmentName
+            |Class: 
+            classname= className
+            br
+            br
+            |Rubric: 
+            rubricname(class='rubricname')= rubricName
+            br
+            br
+            |Date Given:  
+            date= date
+            br
+            br
+            .col-lg-6
+                .input-group
+                    input.form-control(id ='searchInput' type='text', placeholder='Search For A Student')
+            br
+            br
+            br
+            table.table.table-bordered.table-hovered(id= 'rubric_grading', border='1')
+                tbody
+            script.
+                parseData(!{JSON.stringify(rubric)}, '#rubric_grading')
+            br
+            ul(id='studentUL')
+                each student, i in studentList
+                    form.rubric_form_grade(id='#{i}', name='#{student.fName}'+'#{student.lName}')
+                        li(id= '#{student.id}', class= 'list') #{student.fName} #{student.lName}
+                            button.btn.btn-warning(id = 'visibilityToggle', type= 'button', class = 'hiding')
+                                i.fa.fa-eye-slash.visibility(aria-hidden='true')
+                        textarea(rows='5%', cols='30%') Student Comments
+                        button.btn.btn-default.submit_rubric_grade(type='button', id= 'grade ' + '#{student.id}') Save Grade
+                        h6(id = 'result#{student.id}')
+                    div#data
+                        h6 ID: #{assignmentData[i].id}
+                        h6 Grade: #{assignmentData[i].grades.toFixed(5)*100}
+                        h6 Comments: #{assignmentData[i].overAllComments}
+                    hr
+            br
+            .fixed-action-btn.smooth-scroll(style='bottom: 500px; right: 500px;')
+                a.btn-floating.btn-large.red(href='#top-section')
+                    i.fa.fa-arrow-up
+                    |  Back to the top
+            script.
+                displayPerStudent(!{JSON.stringify(studentList)}.length);

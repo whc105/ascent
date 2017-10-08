@@ -1,0 +1,28 @@
+extends layout
+ 
+block content
+	h3.classID= classID
+	script(src='/javascripts/getRubricName.js')
+	//Basic Form
+	
+	form#form_add_student(name="newAssignment", method="post", action='/classes/' + classID + '/newAssignment')
+		br
+		span Assignment Name
+		span &nbsp;
+		input#input_fname(type="text", placeholder="AssignmentName", name="AssignmentName")
+		br
+		br
+		span Rubric Name
+		span &nbsp;
+		select#rubricName(name='RubricName')
+		br
+		br
+		span Date Given
+		span &nbsp;
+		input(name='date', type='date', min='1980-01-01', max='2500-01-01')
+		button#submit_student(type="submit") submit
+		br
+		br
+		-mainPage = "/"
+		a(href="#{mainPage}") Return to the main page
+		

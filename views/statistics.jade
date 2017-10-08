@@ -1,0 +1,42 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/statistics.css')
+    script(src='/javascripts/charts-js/Chart.min.js')
+    script(src='/javascripts/schoolStats.js')
+    div#general-stats
+        h1 General Statistics
+        h4.studentCount
+        h5.averageGPA
+        h5.classCount
+    br
+    div#deviation
+        h5.standardDeviation
+        canvas#gpaDeviation
+    hr
+    div.row
+        div#genders.col-md-4
+            h5.maleCount
+            h5.femaleCount
+            canvas#genderChart
+        div#sped.col-md-4
+            h5.spedCount
+            canvas#spedChart
+        div#ell.col-md-4
+            h5.ellCount
+            canvas#ellChart
+    hr
+    div.row1
+        div#grade.col-md-4
+            h5 Grade Levels
+            canvas#gradeChart
+        div#reports.col-md-4
+            h5 Reports
+            canvas#reportChart
+        div#passrate.col-md-4
+            h5 Students Performance
+            canvas#passChart
+    hr
+    div#slider
+    div#slider-GPA.col-md-4
+        input#amount(type='text', readonly='', style='border:0; color:#3a3734; font-weight:bold;')
+        canvas#aboveXChart

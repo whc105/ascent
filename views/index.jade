@@ -1,0 +1,54 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/index.css')
+    script(src='/javascripts/logButton.js')
+    //wrapper div for boostrap restriction
+    div.container
+        #header
+            div(style='background-color:#303030; padding-bottom: 10px; padding-left:10px; padding-right:10px;')
+                div(align='center')
+                    br
+                    h1.title.animated.fadeIn
+                        | Welcome to Ascent
+                br
+                div(align='center')
+                    .btn-group-vertical(role='group', aria-label='...')
+                        button.bttn-bordered.bttn-md(id = "LogInOut" , type='button')
+                        br
+                //contains the sign up, log in
+                #content
+                    //Featurette
+                    hr.featurette-divider
+                    .row.featurette
+                        .col-md-7
+                            h2.featurette-heading
+                                span.glyphicon.glyphicon-equalizer(aria-hidden='true')  Analytics 
+                                span &nbsp
+                                span.text-muted Simple and Effective Analysis 
+                            p.lead
+                                | Our data analysis makes it easy for teachers to identify where students may need help in as well as identify what assignment aspects would most benefit students.
+                        .col-md-5
+                            img.featurette-image.img-responsive.center-block.analysis(src='/images/analytics.jpg', alt='Generic placeholder image')
+                    hr.featurette-divider
+                    .row.featurette
+                        .col-md-7.col-md-push-5
+                            h2.featurette-heading
+                                span.glyphicon.glyphicon-pencil(aria-hidden='true')  Design 
+                                span &nbsp
+                                span.text-muted Clean and Easy to Use
+                            p.lead
+                                | Design is very important to us. We believe less is more, and when it comes to our interface a simple, clutter free, and easy to understand service is the best way to go about it. Teachers can focus on helping their students above all else.
+                        .col-md-5.col-md-pull-7
+                            img.featurette-image.img-responsive.center-block.design(src='/images/analysisChart.png', alt='Generic placeholder image')
+                    hr.featurette-divider
+                    .row.featurette
+                        .col-md-7
+                            h2.featurette-heading
+                                span.glyphicon.glyphicon-signal(aria-hidden='true')  Progress
+                                span &nbsp
+                                span.text-muted Class Progress/Statistics in One
+                            p.lead
+                                | With our statistics tools, finding out how your students are doing is as easy as pie.
+                        .col-md-5
+                            img.featurette-image.img-responsive.center-block.progress(src='/images/teacher.jpg', alt='Generic placeholder image',style = "height:50%; width:50%;")
+                            link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet')

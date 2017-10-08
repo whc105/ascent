@@ -1,0 +1,17 @@
+extends layout
+ 
+block content
+    h3.classID= classID
+    
+    //Remove assignment form
+    script(src='/javascripts/getAssignmentNames.js')
+    form#form_remove_assignment(name="removeAssignment", method="post", action='/classes/' + classID + '/removeAssignment')
+        span id
+        span &nbsp;
+        select#input_assignment(name='name')
+        br
+        br
+        button#submit_assignment_form(type="submit") submit
+        br
+        -mainPage = "/"
+        a(href="#{mainPage}") Return to the main page

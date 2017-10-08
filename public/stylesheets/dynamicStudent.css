@@ -1,0 +1,30 @@
+#fName, #mName, #lName, 
+#id, #gender, 
+#sped, #ell, 
+#grade, #gpa, #cohort{
+    display:inline;
+}
+
+#updateForm {
+    display: none;
+    vertical-align: top;
+}
+
+h3 {
+    display: inline-block;
+}
+
+.headerID {
+    position: relative;
+    left: 40%;
+}
+
+#studentDataList {
+    vertical-align: top;
+    display: inline-block;
+}
+
+#enrolled {
+    float: right;
+    display: inline;
+}

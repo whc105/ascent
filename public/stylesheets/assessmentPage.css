@@ -1,0 +1,49 @@
+#input {
+    width: 50px;
+}
+
+#rubric_grading {
+    display: none;
+}
+
+td {
+    width : 30%;
+}
+
+p {
+    width: 90%;
+    padding: 5px;
+    margin: 5px;
+}
+
+hr {
+    border-color: grey;
+}
+
+.submit_rubric_grade {
+    position: relative;
+    bottom: 13px;
+}
+
+.visibility {
+    color: black;
+}
+
+textarea {
+    display: none;
+}
+
+.submit_rubric_grade {
+    display: none;
+    position: relative;
+    top: 10px;
+}
+
+table p {
+    border: solid;
+    border-color: white;
+}
+
+table p:hover {
+    cursor:pointer;
+}

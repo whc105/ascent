@@ -1,0 +1,71 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/assignmentStats.css')
+    script(src='/javascripts/assignmentStats.js')
+    script(src='/javascripts/charts-js/Chart.min.js')
+    div(align='center')
+        br
+        h2 Assignment Statistics 
+        br
+        select#assignmentList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='changeChart()')
+        br
+        br
+        div.general-stats
+            h5#assignment-avg
+        br
+        div.row1
+            div#topic-chart.col-md-6
+                canvas#bar-topic
+                div.filter-tool(id='side-filter', align='left')
+                    //Flip switch feature
+                    div.dropdown
+                        button.bttn-minimal.bttn-xs.bttn-primary.dropdown-toggle(id='dropdownMenuGender', type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                            |Filter By Gender 
+                            span.caret
+                        ul.dropdown-menu(aria-labelledby='dropdownMenuGender')
+                            li
+                                div.input-group
+                                    &nbsp
+                                    |Show M 
+                                    input(type='checkbox', name='filter-male', id='filter-male')
+                                br
+                            li
+                                div.input-group
+                                    &nbsp
+                                    |Show F 
+                                    input(type='checkbox', name='filter-fmale', id='filter-fmale')
+                    br
+                    div.dropdown
+                        button.bttn-minimal.bttn-xs.bttn-primary.dropdown-toggle(id='dropdownMenuSPED', type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                            |Filter By SPED 
+                            span.caret
+                        ul.dropdown-menu(aria-labelledby='dropdownMenuSPED')
+                            li
+                                div.input-group
+                                    &nbsp
+                                    |Show SPED 
+                                    input(type='checkbox', name='filter-sped', id='filter-sped')
+                    br
+                    div.dropdown
+                        button.bttn-minimal.bttn-xs.bttn-primary.dropdown-toggle(id='dropdownMenuELL', type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                            |Filter By ELL 
+                            span.caret
+                        ul.dropdown-menu(aria-labelledby='dropdownMenuELL')
+                            li
+                                div.input-group
+                                    &nbsp
+                                    |Show ELL 
+                                    input(type='checkbox', name='filter-ell', id='filter-ell')
+                    br
+                    button.bttn-unite.bttn-xs(id='filter-button', onClick = 'filterAverages()')
+                        i.fa.fa-filter(aria-hidden='true')  Save Filter
+            div#graded-students.col-md-6
+                canvas#graded-chart
+            select#studentList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='drawStudentPerformance()')
+            div#perf-chart
+                canvas#student-chart
+        hr
+        div.row2
+            div#scoring-avg-chart
+                canvas#avg-chart
+        

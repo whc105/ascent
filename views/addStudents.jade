@@ -1,0 +1,23 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/addStudents.css')
+    -className = className
+    
+    br
+    br
+    h3.title Add Students to 
+    h3.
+        #{className}
+    br
+    br
+    form#add_student_to_class(name='addStudent', method='post', action='/classes/' + className + '/addStudents')
+        |Select the students you want to add to #{className}
+        each students, i in availableStudents
+            br
+            br
+            input(type='checkbox', name='#{students.id}')
+            | Name: #{students.fName} #{students.mName} #{students.lName}
+            br
+            | ID Number: #{students.id}
+        br
+        button#submit_student(type='submit') submit

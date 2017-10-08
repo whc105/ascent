@@ -1,0 +1,24 @@
+extends layout
+block content
+    form#form_add_teacher(name='newFaculty', method='post', action='/faculty/newFaculty')
+        br
+        span First Namme  
+        span &nbsp;
+        input(type='text', placeholder='First Name', name='fName', id = 'fName',required)
+        br
+        br
+        span Last Name 
+        span &nbsp;
+        input(type='text', placeholder='First Name', name='fName', id = 'fName',required)
+        br
+        br
+        span ID  
+        span &nbsp;
+        input(type = 'text', name='id', id = 'id', onkeypress='return event.charCode >= 48 && event.charCode <= 57')
+        br
+        br
+        button#submit_class(type='submit') submit
+        br
+        br
+        -classes = '../classes'
+        a(href='#{classes}') Return to Classes page

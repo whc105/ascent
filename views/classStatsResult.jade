@@ -1,0 +1,33 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/classStatsResult.css')
+    script(src='/javascripts/charts-js/Chart.min.js')
+    
+    p #{studentData}
+    div#pieChart
+        canvas#myChart
+    
+    script.
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myPieChart = new Chart(ctx,{
+            responsive:true,
+            height:100,
+            width: 100,
+            type: 'pie',
+            data :{
+                datasets: [{
+                    data: [
+                      #{mGenderCount}, 
+                      #{fGenderCount}
+                    ],
+                    backgroundColor: [
+                        '#5995f7',
+                        '#db64d3'
+                    ]
+                }],
+                labels: [
+                    'Male',
+                    'Female'
+                ]
+            }
+        });

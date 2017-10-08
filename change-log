@@ -1,0 +1,286 @@
+Change-log
+
+Note
+-Use TABS(4 spaces tabs) not SPACES for everything
+-Use code only under MIT License
+-Use images only under Creative Commons License
+-Duplicate Class Names and Student ID are NOT ALLOWED
+
+To-Do
+-Rebuild index page
+
+October 1 2017
+-Built an API for GET requests for students, assignments, and classes collections
+--GET request data can be viewed via /api/[Collection-Name]
+
+September 29 2017
+-Added new student performance benchmarks
+-Added student filtering by SPED/ELL
+
+September 26 2017
+-Added student filtering by gender
+
+September 22 2017
+-Enabled viewing student data for assignmentStats page
+-Removed animation for studentlist
+-Added non-functioning filters to assignmentStats
+
+September 16 2017
+-Merged newClass and removeClass into the classes file
+-Added modal to classes page
+-Added student grade along with comments per assignment
+-Added a scatter/bubble graph with above, below, and at average model
+
+September 9 2017
+-Added graded vs ungraded chart to assignment stats
+-Vastly improved assignment statistics performance
+-Added student vs class comparisons for assignment statistics
+
+September 8 2017
+-Added Report/Suspension counts for dynamicStudent
+-Fixed a bug where assignment statistics crash
+-Improved assignment statistics performance
+
+September 1 2017
+-Fixed various duplications in HTML/CSS
+
+August 31 2017
+-Rebuilt rubric viewer
+-Rebuilt grading
+--getRubricJSON.js marked
+
+August 30 2017
+-Rubric Creator temporarily moved to /testing
+-Overhauled rubric-creator, view at /testing
+--addSection.js | rubricDataParser.js - Removed
+
+August 29 2017
+-Added a new pre-alpha rubric-creator, view at /testing
+
+August 28 2017
+-Added report counts and how many are failing to General Statistics
+-Vastly improved general statistics performance
+-Fixed a bug where the gender chart is unclickable
+-Remove Student page is marked for removal
+-Integrated portions of removeStudent into studentList
+
+August 26 2017
+-Improved Dynamic Student Page
+-Fixed a bug where the standard deviation did not calculate the left most values
+
+August 25 2017
+-Merged add newStudent page to studentList
+-Added more data to dynamic student page
+
+August 23 2017
+-Polished add student page on studentList page
+-Add newStudent to be removed
+
+August 22 2017
+-Deployed front-end add student page directly onto studentList page
+
+August 21 2017
+-Updated Various Buttons
+
+August 16 2017
+-Added a filtration tool in studentList page
+
+August 13 2017
+-Fixed several bugs where the server will crash if a dynamic URL is invalid
+--These include dynamic studentIDs, class names, and assignment names
+-Updated rubric creator buttons
+
+August 12 2017
+-Made website look a bit better
+
+August 11 2017
+-Added search bar for students on grading page
+-Removed some unnecessary code in assessment jade file
+-Cursor is now a pointer when hovering over class box(link still doesn't work unless you click the actual link however)
+-Updated bug log with some freshly caught bugs
+-Fixed several bugs regarding unclickable boxes and overflows
+
+August 10 2017
+-Prevented users from adding/creating students with the same ID
+-Added frontend duplicate ID checks
+
+August 9 2017
+-Added grey background over index page text
+-Fixed several synchronous issues regarding students, classes, and assignments
+-Improved performance when adding students and assignments
+-Fixed several bugs regarding rubrics
+
+August 8 2017
+-Revised rubric JSON structure
+-Vastly improved bulk adding student performance
+-Revised student JSON structure
+-Revised assignment JSON structure
+-Revised class JSON structure
+-Year on new class turned to text field
+-Added faculty main page
+-Added faculty new page
+
+August 6 2017
+-Added Grade Levels for entire school
+-Added clickable students in student list
+-Cleaned up login page
+
+August 5 2017
+-Improved student GPA bar
+-Relocated dynamic student page to /studentlist/:id
+-Fixed a bug where updating a student would prevent their data from being updated
+-Added the ability to change the input box size in rubric editor
+-Added calculate assignment grade using average
+-Increased student search speed
+-Modified dynamic student page
+
+August 4 2017
+-Began work on filter statistics on assignmentStats page
+-Hid the navbar toggler on mobile/tablet
+-Added a GPA deviation chart
+
+August 3 2017
+-Added hiding and showing student rubrics
+-Added show student grade in rubric grading page
+-Added toggling between show grade and grade student in rubric grading
+-Refined print functionality for rubric view 
+
+August 2 2017
+-Added a significantly better student search mechanism
+-Added print functionality to rubric view
+-Added case insensitivity for rubric search
+
+July 31 2017
+-Added icons to navbar
+-Fixed Average GPA for all students in StudentList to account for NaN
+-Improved buttons
+-Changed some colors on Student list
+-Limited the average GPA on studentList to 2 decimal places
+-Added mass student deletion
+-Added button to check all on remove student
+-Added login button on task bar
+-Completed basic statistics page
+
+July 30 2017
+-Grading is now done
+--Teachers can grade multiple students on the same page
+-This will make the world a better place
+-Deleted student assignments
+-Minor update to package.json 
+-Layed foreground for general statistics page
+
+July 29 2017
+-Parsed front end grading data
+-Stored front end grading data to assignment collection
+
+July 28 2017
+-Student Search feature somewhat completed (bugged/not fully fleshed out)
+-Student List jade file refined
+-Syncronized Classes, Assignments, and Students collections
+-Fixed a stupid bug where the rubric for each student would not show up
+-Adding assignments now creates grading JSON structure
+-Deployed promises on classes.js and migrated add assignment methods to addAssignment.js
+-Deployed search bar functionality
+
+July 27 2017
+-Added rubric comment selectors.
+--If you click on a comment in a rubric, it changes color to show it is selected
+
+July 26 2017
+-Increase performance on post commands
+-Reduced database connections between posts and gets
+-Added dates to assignments
+-Rubric View is now neater and dynamically resizes itself
+-Grading JSON is available
+-Added some SICK homemade navbar collapse tool
+
+July 25 2017
+-Rubric Viewer now live
+
+July 24 2017
+-Deployed Dynamic Breadcrumbs
+-Added remove rubrics page
+
+July 22 2017
+-Started developing dynamic breadcrumb functionality(Still work in progress)
+-Compressed student route files
+-Added file path depth
+-Optimized student database data retrieval
+-Make rubric editor look better
+
+July 20 2017
+-Added the ability to add new students to a class
+-Added the ability to remove students from a class
+-Added interconnectivity between collections
+-Refined database
+
+July 19 2017
+-Added assignments to the classes page
+-Removed adding/removing assignments from the Assignments tab
+-Added connectivity between classes and assignments when inputting/removing assignments
+
+July 18 2017
+-Added classes to the database
+-Added connectivity between classes, assignments, and students
+-Compressed some code on assignments
+-Added breadcrumb feature(not fully implemented on every page)
+-Improved jade file organization/layout
+-Fixed home page to work with different sized screens
+
+July 17 2017
+-Added class name and rubric name for Assignments object
+-Grading is now deprecated. It died so we can patch it.
+
+July 15 2017
+-Stylized index page
+-Added backend for 404 page
+-Cleaned up naming scheme for some css files
+-Fully deployed rubric editor
+-Enabled rubric to be saved to database in the form of a 3D array O(N³) LUL
+
+July 12 2017
+-Added AJAX to remove assignments
+-Added Error Handling to add student, remove student, and remove assignment
+-Reorganized CSS
+-Added color gradient for student GPAs
+-Added basic session values
+
+July 11 2017
+-Added AJAX to remove students, no longer need to refresh page to see if a student is available
+
+July 10 2017
+-Switched from absolute to relative URL paths
+-Added error handling for add_student page
+-Added simple favicon
+
+July 6 2017
+-Added a CSV student upload mechanism
+-Fixed a stupid bug regarding callbacks when adding new students
+-Added modularity to add student functions
+-Created serverJS folder to enable reusability
+-Added mass user upload with .csv files
+
+June 30 2017
+-Added Grading Mechanism with one rubric
+-Commented Code
+-Added carousel example
+-Added search bar example
+
+June 28 2017
+-Added dynamic student assessment page
+-404 Error Page
+
+June 25 2017
+-Updated studentAssignments with promises
+-Added page refresh to dynamic students page
+
+June 23 2017
+-Created Sign Up page
+-Set up elements in preparation for JS event handling
+
+June 21 2017
+-Added modularity to routes JS files
+-Improved performance for student list
+-Moved Bootstrap to local
+-Added a Switch Button for unique student pages
+-Added student data inputs individual student pages

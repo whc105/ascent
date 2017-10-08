@@ -1,0 +1,39 @@
+.classesList {
+    display: block;
+}
+
+.class-box {
+    display: inline-block;
+    vertical-align: top;
+    border-style: solid;
+    border-color: black;
+    width: 200px;
+    height: 130px;
+    padding: .5%;
+    margin: 5px;
+}
+
+.class-box:hover {
+    border-style: solid;
+    border-color: #42cef4;
+    cursor: pointer;
+}
+
+.class-box p {
+    word-wrap: break-word;
+}
+
+.classLinks:hover {
+    text-decoration: none;
+}
+
+.modal-title {
+    padding-top: 10px;
+    text-align: center;
+}
+
+button:active, button:focus { 
+    outline: 0;
+    border: none;
+    -moz-outline-style: none;
+}

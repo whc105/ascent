@@ -1,0 +1,117 @@
+doctype html
+html
+    head
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        
+        //Import JQuery
+        link(rel='stylesheet', href='/stylesheets/css-modules/jquery-ui.min.css')
+        script(src='/javascripts/jquery/jquery.min.js')
+        script(src='/javascripts/jquery/jquery-ui.min.js')
+        
+        //Import bootstrap
+        link(rel='stylesheet', href='/stylesheets/bootstrap-css/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/bootstrap-css/bootstrap-theme.min.css')
+        script(src='/javascripts/bootstrap-js/bootstrap.min.js')
+        
+        //Import animation
+        link(rel='stylesheet', href='/stylesheets/css-modules/animate.min.css')
+        link(rel='stylesheet', href='/stylesheets/css-modules/font-awesome-4.7.0/css/font-awesome.min.css')
+        
+        //Import custom buttons
+        link(rel='stylesheet', href='/stylesheets/css-modules/bttn.min.css')
+        
+        //Sitewide CSS
+        link(rel='stylesheet', href='/stylesheets/layout.css')
+        
+        //dynamic breadcrumbs script
+        script(src='/javascripts/breadcrumbs.js')
+        
+        title Ascent
+
+    body(onload='createBreadCrumbs()')
+        block content
+        -home = "/"
+        -studentListings = "/studentList"
+        -assignments = "/studentAssignments"
+        -rubrics = "/rubrics"
+        -classes = '/classes'
+        -rubricView = '/rubricView'
+        -statistics = '/statistics'
+        div.relative(align='left')
+            a#menu-toggle.btn.btn-dark.btn-lg.toggle
+                i.fa.navToggle.fa-times
+        nav.navbar.navbar-inverse.navbar-fixed-top.animated
+            .container
+                .navbar-header
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='#{home}') Ascent
+                #navbar.collapse.navbar-collapse
+                    ul.nav.navbar-nav.navbar-left
+                        li.navBarItem
+                            .dropdown
+                                button.dropbtn
+                                    a.bttn-bordered.bttn-sm.bttn-default(href='#{studentListings}') Students  
+                                        i.fa.fa-address-book.faAddressBook(aria-hidden='true')
+                        li.navBarItem
+                            .dropdown
+                                button.dropbtn
+                                    a.bttn-bordered.bttn-sm.bttn-default(href="#{rubrics}") Rubrics 
+                                        span.glyphicon.glyphicon-list-alt
+                                .dropdown-content.animated.fadeIn
+                                    a#add(href='/rubrics/rubricCreator') New Rubric 
+                                        i.fa.fa-pencil-square-o(aria-hidden='true', style="float:right")
+                                    a#remove(href='/rubrics/removeRubric') Remove Rubric 
+                                        i.fa.fa-trash-o(aria-hidden='true', style="float:right")
+                        li.navBarItem
+                            .dropdown
+                                button.dropbtn
+                                    a.bttn-bordered.bttn-sm.bttn-default(href="#{classes}") Classes 
+                                        i.fa.fa-university(aria-hidden='true')
+                        li.navBarItem
+                            .dropdown
+                                button.dropbtn
+                                    a.bttn-bordered.bttn-sm.bttn-default(href='#{statistics}') Statistics 
+                                        i.fa.fa-area-chart(aria-hidden='true')
+                                .dropdown-content.animated.fadeIn
+                                    a(href='/classStats') Class Stats 
+                                        i.fa.fa-bar-chart.classFA(aria-hidden='true', style="float:right")
+                                    a(href='/assignmentStats') Task Stats
+                                        i.fa.fa-line-chart(aria-hidden='true', style = "float:right")
+        #footer
+    script.
+        var isClicked = true;
+        $('#menu-toggle').click(function(e) {
+            if (isClicked) {
+                isClicked = false;
+                $('.navbar.navbar-inverse.navbar-fixed-top').toggleClass('fadeOutRight');
+                $('.navToggle').toggleClass('fa-bars')
+                $('.navToggle').toggleClass('fa-times')
+                $('.navToggle').css({
+                    'color':'black'
+                });
+                $('#menu-toggle').css({
+                    'background-color': 'white',
+                    'border-color':'black',
+                    'border-width': '3px'
+                });
+            }
+            else {
+                isClicked = true;
+                $('.navbar.navbar-inverse.navbar-fixed-top').toggleClass('fadeOutRight');
+                $('.navbar.navbar-inverse.navbar-fixed-top').toggleClass('fadeInRight');
+                $('.navToggle').toggleClass('fa-times')
+                $('.navToggle').toggleClass('fa-bars')
+                $('.navToggle').css({
+                    'color':'white'
+                });
+                $('#menu-toggle').css({
+                    'background-color':'black',
+                    'border-color':'transparent',
+                    'border-width': '3px'
+                });
+            }
+        });

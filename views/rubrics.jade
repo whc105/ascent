@@ -1,0 +1,31 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/rubrics.css')
+    script(src='/javascripts/displayRubric.js')
+    br
+    div(align='center')
+        h2 Search for a Rubric
+        br
+        form#search_rubric(name='search')
+            input(id='rubricSearch', name='rubricName', type='text', placeholder='enter rubric name here')
+            &nbsp
+            button#submit_form(class='bttn-simple bttn-xs bttn-primary', type='submit') Submit
+    br
+    div#printDiv
+        table.table.table-bordered.table-hover(border='1')
+            tbody
+    br
+    br
+    br
+    -newRubric = 'rubrics/rubricCreator'
+    -removeRubric = 'rubrics/removeRubric'
+    a.btn.btn-success(href='#{newRubric}') Rubric Editor 
+        i.fa.fa-pencil-square-o(aria-hidden='true')
+    br
+    br
+    a.btn.btn-danger(href='#{removeRubric}') Remove Rubric 
+        span.glyphicon.glyphicon-floppy-remove
+    br
+    br
+    a.btn.btn-primary(onclick='printPage()') Print/Save PDF 
+        span.glyphicon.glyphicon-print

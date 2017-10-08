@@ -1,0 +1,60 @@
+body {
+    background-image: url('/images/classroom.jpg');
+    background-size: cover;         
+    background-repeat: no-repeat;
+}
+
+.title.animated.fadeIn{
+    color:white;
+    text-shadow: 2px 2px 2px #000;
+    
+}
+
+#subtitle{
+   text-shadow: 1px 1px 1px #000;
+   color:white;
+}
+
+.item {
+    height: 100%;
+    width: 100%;
+}
+
+#carousel.carousel.slide {
+    height: 100%;
+    width: 20%;
+}
+
+.row.featurette {
+    color: white;
+}
+
+.text-muted {
+    color: white;
+}
+
+#footer {
+    display: none;
+}
+
+h1 {
+    font-family: Helvetica;
+}
+
+img {
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+}
+
+.analysis {
+    width: 60%;
+}
+
+.design {
+    width: 40%;
+}
+
+#LogInOut {
+    outline: none;
+}

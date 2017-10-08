@@ -1,0 +1,51 @@
+extends layout
+block content
+    script(src='/javascripts/dynamicClassesTabs.js')
+    link(rel='stylesheet', href='/stylesheets/dynamicClasses.css')
+    script.
+        var studentList = !{JSON.stringify(studentList)}
+    
+    -addStudents = '/classes/' + classname + '/addStudents'
+    -removeStudents = '/classes/' + classname + '/removeStudents'
+    -newAssignment = '/classes/' + classname + '/newAssignment'
+    -removeAssignment = '/classes/' + classname + '/removeAssignment'
+    div.toolBar(align='right')
+        a.btn.btn-xs.btn-default(href=addStudents)
+            i.fa.fa-plus(aria-hidden='true')    Add students
+        a.btn.btn-xs.btn-default(href=removeStudents)
+            i.fa.fa-minus(aria-hidden='true')    Remove Students
+        a.btn.btn-xs.btn-default(href=newAssignment)
+            i.fa.fa-pencil-square-o(aria-hidden='true')    New Assignment
+        a.btn.btn-xs.btn-default(href=removeAssignment) 
+            i.fa.fa-trash-o(aria-hidden='true')    Remove Assignment
+    h3.classname= classname
+    br
+    br
+    |Subject: 
+    subject= subject
+    br
+    hr
+    br
+    div#studentTabs(class = 'studentList')
+        div#headPortion
+            h4.studentHeader Students
+            input.form-control(id ='searchInput' type='text', placeholder='Search for Student')
+        ul#studentTabBar
+    hr
+    br
+    |Assignments Given
+    ol
+        each assignment, i in assignments
+            span &nbsp;
+            li
+                a(href= '/classes/#{classname}/#{assignments[i].assignmentName}') #{assignments[i].assignmentName}
+    br
+    hr
+    br
+    |Teachers: 
+    teachers= teacherList
+    br
+    br
+    br
+    br
+    hr

@@ -1,0 +1,151 @@
+body {
+    padding: 50px; /*verical padding*/
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+button{
+    display:inline-block;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.dropbtn {
+    background-color: transparent;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.dropbtn:hover {
+    transform: scale(1.1);
+}
+.dropbtn a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    background-color: transparent;
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#footer {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   z-index: 100;
+   height:30px;
+   width:100%;
+   background:#999;
+}
+
+.breadcrumbs {
+    float: left !important;
+}
+entry-title {
+    display: none !important;
+}
+.page-title ul li, page-title ul li a {
+    float: left !important;
+}
+
+#menu-toggle {
+    background-color: black;
+    position: fixed;
+    right: 20px;
+    top: 0.135%;
+    z-index: 10000;
+    border-width: 3px;
+}
+
+.navToggle {
+    color: white;
+}
+
+/*Hides toggler on smaller res devices*/
+@media (max-width: 767px) {
+    #menu-toggle {
+        display: none;
+    }
+    #footer {
+        display: none;
+    }
+}
+.classFA{
+    font-size:125%;
+}
+.statsFA{
+    font-size:90%;
+}
+
+.faAddressBook{
+    font-size:100%;
+}
+.faCloseBar{
+    font-size:75%; 
+}
+
+.dropdown-content.animated.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+}
+
+.dropdown-content a {
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+#add:hover {
+    background-color: rgba(167, 233, 149, 0.2);
+    border-color: rgba(167, 233, 149, 1);
+}
+
+#remove:hover {
+    background-color: rgba(240, 58, 45, 0.2);
+    border-color: rgba(240, 58, 45, 1);
+}
+
+.navbar-brand {
+    transition: all .2s ease-in-out;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.1);
+}

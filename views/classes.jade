@@ -1,0 +1,56 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/classes.css')
+    script(src='/javascripts/classes.js')
+    h3 Classes
+    each classItem, i in classesList
+        -dynamicClassPage = '/classes/' + classItem.name
+        div.class-box
+            span.glyphicon.glyphicon-book(aria-hidden='true')
+            span &nbsp
+            a.class-name(href='#{dynamicClassPage}' name='className') #{classItem.name}
+            br
+            br
+            p Subject: #{classItem.subject}
+            p Students enrolled: #{classItem.students.length}
+            p Assignments Given: #{classItem.assignments.length}
+    br
+    br
+    button.bttn-minimal.bttn-xs.bttn-primary.classLinks(type='button', data-toggle='modal', data-target='.new-class') New Class
+    .modal.fade.new-class(tabindex='-1', role='dialog', aria-labelledby='newClassModal')
+        .modal-dialog.modal-sm(role='document')
+            .modal-content
+                .moda-header
+                    h4.modal-title New Class
+                    hr
+                .modal-body
+                    form#form_add_class(name='newClass', method='post', action='/classes/newClass')
+                        span Class Name  
+                        input#input_name(type='text', placeholder='Class Name', name='name', required)
+                        br
+                        br
+                        span Class Subject  
+                        input#input_subject(type='text', placeholder='Topic', name='subject', required)
+                        br
+                        br
+                        span Year  
+                        input#input_year(name='year', onkeypress='return event.charCode >= 48 && event.charCode <= 57')
+                        br
+                        br
+                        button#submit_class(type='submit') submit
+    br
+    br
+    button.bttn-minimal.bttn-xs.bttn-danger.classLinks(type='button', data-toggle='modal', data-target='.del-class') Delete Class
+    .modal.fade.del-class(tabindex='-1', role='dialog', aria-labelledby='delClassModal')
+        .modal-dialog.modal-sm(role='document')
+            .modal-content
+                .moda-header
+                    h4.modal-title Delete Class
+                    hr
+                .modal-body
+                    form#form_remove_class(name='removeClass', method='post', action='/classes/removeClass')
+                        span Class Name 
+                        select#input_class(name='name')
+                        br
+                        br
+                        button#submit_class(type='submit') submit

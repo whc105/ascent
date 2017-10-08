@@ -1,0 +1,55 @@
+.toolBar {
+    display: block;
+    position: fixed;
+    border-style: solid;
+    border-color: silver;
+    background-color: white;
+    width: 140px;
+    margin: 3px;
+    left: 85%;
+    z-index: 9999;
+}
+
+.toolBar a {
+    margin: 3px;
+}
+
+.studentList {
+    border-style: solid;
+    border-color: silver;
+    width: 220px;
+    height: 300px;
+    margin: 3px;
+}
+
+.studentHeader {
+    display: block;
+    text-align: center;
+    color: white;
+    margin: 0px;
+    padding: 3px;
+    font-family: 'Verdana';
+    background-color: #003eff;
+}
+
+#searchInput {
+    text-align: center;
+    width: 100%;
+}
+
+#linkTab {
+    height: 9%;
+}
+
+#studentTabBar {
+    display: inline-block;
+    position: absolute;
+    width: 97.65%;
+    bottom: 0px;
+}
+
+#headPortion {
+    width: 100%;
+    margin: 1px;
+    display: block;
+}

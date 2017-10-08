@@ -1,0 +1,75 @@
+extends layout
+//-    
+    block content
+        //script(src='/javascripts/signUpFeature.js')
+        h1 Create an Account
+        br
+        #errormsg
+            p
+                small
+        
+        form.form-group(required='true', name='signUp', method='post', action='/signUp')
+            label(for='pEmail') Principal Email:
+            input#pemail.form-control(type='text', name='pEmail')
+            br
+            label(for='schoolname') School Name:
+            input#schoolname.form-control(type='text', name='schoolName')
+            br
+            label(for='schooladr') School Address:
+            input#schooladr.form-control(type='text', name='schoolAdr')
+            br
+            label(for='password') Password:
+            input#password.form-control(type='password', name='password')
+            br
+            label(for='password2') Re-enter Password:
+            input#password2.form-control(type='password', name='password2')
+            br
+            div(align='center')
+                button.btn.btn-primary.btn-lg(type='submit', id='button', onclick='checkValid()') Sign up
+    
+    extends layout
+    block content
+        div(align='center')
+            h3= title
+                form#form_signUp(name="signUp", action="/signUp", method="post" )
+                    br
+                    span Username
+                    span &nbsp;
+                    input#input_username(type="text", placeholder="Username", name="userName")
+                    br
+                    br
+                    span Password
+                    span &nbsp;
+                    input#input_password(type="text", placeholder="Password", name="passWord")
+                    br
+                    br
+                    | Are you an admin?  
+                    input#input_adminStatus(type="checkbox", name = "adminStatus")
+                    br
+                    br
+                    button#signUp(type="Sign Up") submit
+                    br
+                    br
+                -mainPage = "../"
+                a(href="#{mainPage}") Return to the main page
+-//
+
+ script(type='text/javascript').
+  function validateForm()
+  {
+  var a=document.forms["Form"]["answer_a"].value;
+  var b=document.forms["Form"]["answer_b"].value;
+  var c=document.forms["Form"]["answer_c"].value;
+  var d=document.forms["Form"]["answer_d"].value;
+  if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="")
+  {
+  alert("Please Fill All Required Field");
+  return false;
+  }
+  }
+  block content
+form(method='post', name='Form', onsubmit='return validateForm()', action='')
+  textarea#a(cols='30', rows='2', name='answer_a')
+  textarea#b(cols='30', rows='2', name='answer_b')
+  textarea#c(cols='30', rows='2', name='answer_c')
+  textarea#d(cols='30', rows='2', name='answer_d')

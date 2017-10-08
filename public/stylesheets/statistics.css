@@ -1,0 +1,29 @@
+#general-stats {
+    position: absolute;
+    text-align: center;
+    left: 45%;
+}
+
+#deviation {
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    height: 30%;
+}
+
+.row {
+    display: inline-block;
+}
+
+.row1 {
+    display: inline-block;
+}
+
+#slider, #amount {
+    text-align: left;
+    width: 30%;
+}
+
+#slider-gpa {
+    display: inline-block;
+}

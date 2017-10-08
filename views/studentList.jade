@@ -1,0 +1,203 @@
+extends layout
+block content
+    link(rel='stylesheet', href='/stylesheets/studentList.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-css/bootstrap-switch.min.css')
+    script(src='/javascripts/bootstrap-js/bootstrap-switch.min.js')
+    
+    script.
+        var students = !{JSON.stringify(studentList)}
+    script(src='/javascripts/studentList.js')
+    div.container
+        div.fade-add
+            div.add-form
+                button.bttn-unite.bttn-xs.bttn-default(id='close-fade-add')
+                    i.fa.fa-times(aria-hidden='true')
+                h4 Add A Student
+                form#form-add-student(name='newStudent', method='post', action='/studentList/newStudent')
+                    div.form-group.row
+                        div.col-xs-4
+                            span First Name
+                            input.form-control(id='input_fname', type='text', placeholder='First Name', name='fName', required)
+                    div.form-group.row
+                        div.col-xs-4
+                            span Middle Name
+                            input.form-control(id='input_mname', type='text', placeholder='Middle name', name='mName')
+                    div.form-group.row
+                        div.col-xs-4
+                            span Last Name
+                            input.form-control(id='input_lname', type='text', placeholder='Last Name', name='lName', required)
+                    span Date Of Birth
+                    span &nbsp;
+                    input(type='date', name='dob', min='1980-01-01', max='2500-01-01', required)
+                    br
+                    br
+                    span ID 
+                    input#input_id(number='text', placeholder='ID', name='id', required)
+                    span &nbsp
+                    i.fa.fa-check-circle-o.id-check(aria-hidden='true')
+                    i.fa.fa-times-circle-o.id-x(aria-hidden='true')
+                    br
+                    br
+                    span Gender
+                    span &nbsp;
+                    select(name='gender')
+                        option(value='M') Male
+                        option(value='F') Female
+                    br
+                    br
+                    span Special Education
+                    span &nbsp;
+                    select(name='sped')
+                        option(value='n') No
+                        option(value='y') Yes
+                    br
+                    br
+                    span English Second Language
+                    span &nbsp;
+                    select(name='ell')
+                        option(value='n') No
+                        option(value='y') Yes
+                    br
+                    br
+                    span Grade
+                    span &nbsp;
+                    select(name='grade')
+                        option(value='9') Freshman
+                        option(value='10') Sophomore
+                        option(value='11') Junior
+                        option(value='12') Senior
+                    br
+                    br
+                    span Graduation Year
+                    span &nbsp;
+                    select(name='graduationYear')
+                        option(value='2015') 2015
+                        option(value='2016') 2016
+                        option(value='2017') 2017
+                        option(value='2018') 2018
+                        option(value='2019') 2019
+                        option(value='2020') 2020
+                        option(value='2021') 2021
+                        option(value='2022') 2022
+                    br
+                    br
+                    span GPA
+                    span &nbsp;
+                    input#input_gpa(number='text', placeholder='GPA', name='gpa')
+                    div#show_gpa= comment
+                    br
+                    br
+                    span Cohort
+                    span &nbsp;
+                    input#input_cohort(type='text', placeholder='Cohort', name='cohort')
+                    br
+                    br
+                    button#submit_student(type='submit') Submit
+        div.fade-remove
+            div.remove-form
+                button.bttn-unite.bttn-xs.bttn-default(id='close-fade-remove') 
+                    i.fa.fa-times(aria-hidden='true')
+                h4 Remove A Student
+                button.bttn-unite.bttn-sm.bttn-primary(id='select-all-button', type='button') Select All
+                form#form_del_student(name="removeStudent", method='post', action='/studentList/removeStudent')
+                    div#remove_list
+                        each students, i in studentList
+                            br
+                            input.input_id(type='checkbox', name='#{students.id}')
+                            br
+                            |Name: #{students.fName} #{students.lName}
+                            br
+                            |ID Number: #{students.id}
+                            br
+                        br
+                        br
+                        button#submit_student(type="submit") submit
+        #header
+        #content
+            br
+            br
+            h3.heading
+                |Students
+            br
+            button.bttn-unite.bttn-xs.bttn-primary(id='add-student') Add Student
+            br
+            button.bttn-unite.bttn-xs.bttn-primary(id='remove-student') Remove Student
+            br
+            button.bttn-unite.bttn-xs.bttn-primary(id='open') Show Filter
+            .col-lg-5
+                input.form-control(id ='searchInput' type='text', placeholder='Search For A Student')
+                div(align='right')
+                    p#notFoundResult
+            div.filter-tool(id='side-filter', align='left')
+                //Flip switch feature
+                div.dropdown
+                    button.bttn-minimal.bttn-xs.bttn-primary.dropdown-toggle(id='dropdownMenuGender', type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                        |Filter By Gender 
+                        span.caret
+                    ul.dropdown-menu(aria-labelledby='dropdownMenuGender')
+                        li
+                            div.input-group
+                                &nbsp
+                                |Show M 
+                                input(type='checkbox', name='filter-male', id='filter-male')
+                            br
+                        li
+                            div.input-group
+                                &nbsp
+                                |Show F 
+                                input(type='checkbox', name='filter-fmale', id='filter-fmale')
+                br
+                div.dropdown
+                    button.bttn-minimal.bttn-xs.bttn-primary.dropdown-toggle(id='dropdownMenuSPED', type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                        |Filter By SPED 
+                        span.caret
+                    ul.dropdown-menu(aria-labelledby='dropdownMenuSPED')
+                        li
+                            div.input-group
+                                &nbsp
+                                |Show SPED 
+                                input(type='checkbox', name='filter-sped', id='filter-sped')
+                br
+                div.dropdown
+                    button.bttn-minimal.bttn-xs.bttn-primary.dropdown-toggle(id='dropdownMenuELL', type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                        |Filter By ELL 
+                        span.caret
+                    ul.dropdown-menu(aria-labelledby='dropdownMenuELL')
+                        li
+                            div.input-group
+                                &nbsp
+                                |Show ELL 
+                                input(type='checkbox', name='filter-ell', id='filter-ell')
+                br
+                button.bttn-unite.bttn-xs(id='filter-button')
+                    i.fa.fa-filter(aria-hidden='true')  Save Filter
+            br
+            br
+            br
+            ul#list
+              each students, i in studentList
+                -studentID = students.id
+                -dynamicID = '/studentList/' + studentID
+                -studentGPA = students.gpa
+                -width = studentGPA + '%'
+                -gender = students.gender
+                .student_list_item(id = '#{studentID}')
+                    a(href='#{dynamicID}', name='id')
+                    p Student ID: #{students.id}
+                    p#name Name: #{students.fName} #{students.lName} 
+                    p#grade Grade Level: #{students.grade}
+                    p#gender Gender: #{gender}
+                    div#studentDiv(class = students.id)
+                        .progress
+                            .progress-bar(role='progressbar', aria-valuenow= studentGPA, aria-valuemin='0', aria-valuemax='100', style='width: ' + width + ';', class = students.id)
+                                |#{width}
+                            script.
+                                gpa='#{studentGPA}';
+                                studentID = '#{studentID}'
+                                changeColors(gpa, studentID);
+            br
+            br
+            form(name='uploadFile', method='post', action='/studentList', enctype='multipart/form-data') Mass Upload Student Data in CSV files
+                input.bttn-gradient.bttn-sm.bttn-primary(type='file', name='upload', accept='.csv')
+                br
+                input.bttn-gradient.bttn-sm.bttn-primary(type='submit', value='Upload')

@@ -1,0 +1,32 @@
+.row1 {
+    display: block;
+    overflow: auto;
+}
+
+#topic-chart {
+    display: inline-block;
+    width: 40%;
+}
+
+#graded-students {
+    display: inline-block;
+    width: 20%;
+}
+
+#studentList {
+    display: none;
+}
+
+#perf-chart {
+    display: inline-block;
+    width: 25%;
+}
+
+#scoring-avg-chart {
+    display: inline-block;
+    width: 50%;
+}
+
+.filter-tool, .dropdown {
+    display: inline-block;
+}
