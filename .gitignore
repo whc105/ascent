@@ -1,5 +1,11 @@
 /node_modules
-/data
 /config/.devKeys.js
+/public/images
+/public/javascripts/bootstrap-js
+/public/javascripts/charts-js
+/public/javascripts/jquery
+/public/stylesheets/bootstrap-css
+/public/stylesheets/css-modules
+/public/stylesheets/fonts
 cert.pem
 mongod
