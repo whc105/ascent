@@ -29,30 +29,6 @@ router.get('/', function(req, res, next) {
     });
 });
 
-//Adds new class to database
-router.post('/newClass', function(req, res) {
-    var classes = db.collection('classes');
-    classes.find({}).toArray(function(err, result) {
-        if (err) {
-            console.log(err);
-        } else {
-            var uniqueID = 0;
-            if (result.length != 0) {
-                uniqueID = result[result.length - 1].id + 1;
-            }
-            var newClass = {id: uniqueID, name: req.body.name,
-            subject: req.body.subject, year: req.body.year,
-            students:[], assignments:[], teacher:[]};
-            classes.insert([newClass], function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            res.redirect('../classes');
-        }
-    });
-});
-
 //For later use after teachers are done
 router.post('/newClass/findTeacher', function(req, red) {
 });
@@ -144,11 +120,6 @@ router.post('/:className/newAssignment', function(req, res) {
         addAssignment(db, res, newAssignments, className, classID);
     });
     res.redirect('/classes/' + className);
-});
-
-//Gets all available rubric name
-router.get('/:className/newAssignment/getRubricName', function(req, res) {
-    getRubricNames(db, res);
 });
 
 //Renders Removes Assignment Page
@@ -324,20 +295,6 @@ function getAllInClassStudents(db, res, className) {
                 res.render('removeStudents', {className:className, availableStudents: result});
             }
         });
-    });
-}
-
-
-//Get all available rubric names
-function getRubricNames(db, res) {
-    var rubricCollection = db.collection('rubrics');
-    rubricCollection.find({},{'rubricName':1,'_id':0}).toArray(function(err, result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.send(result);
-        }
     });
 }
 

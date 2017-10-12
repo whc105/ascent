@@ -53,6 +53,9 @@ studentRoutes(app);
 const assignmentRoutes = require('./api/assignmentRoutes');
 assignmentRoutes(app);
 
+const rubricRoutes = require('./api/rubricRoutes');
+rubricRoutes(app);
+
 app.use('/', index);
 app.use('/studentList', studentList);
 app.use('/signUp', signUp);

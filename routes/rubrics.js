@@ -29,32 +29,6 @@ router.get('/removeRubric', function(req, res, next) {
     res.render('removeRubric');
 });
 
-//Delete rubric
-router.post('/removeRubric', function(req, res, next) {
-    console.log('Successful connection');
-    var rubrics = db.collection('rubrics');
-    rubrics.remove({'rubricName':req.body.name}, function(err) {
-        if (err) {
-            console.log(err);
-        }
-    });
-    res.redirect('/rubrics');
-});
-
-//Get all the rubric names
-router.get('/getAllRubricNames', function(req, res, next) {
-    console.log('Successful connection');
-    var rubrics = db.collection('rubrics');
-    rubrics.find({},{'rubricName':1, '_id':0}).toArray(function(err, result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.send(result);
-        }
-    });
-});
-
 //Get rubric JSON structure
 router.post('/getRubricJSON', function(req, res, next) {
     var searchData = req.body.rubricName.toLowerCase();
