@@ -9,6 +9,11 @@ Note
 To-Do
 -Rebuild index page
 
+October 8 2017 
+-Created GitHub 
+-Enabled MongoDB Server 
+-Allowed version control
+
 October 1 2017
 -Built an API for GET requests for students, assignments, and classes collections
 --GET request data can be viewed via /api/[Collection-Name]

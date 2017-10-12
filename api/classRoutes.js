@@ -17,4 +17,6 @@ module.exports = app => {
             res.send(docs);
         });
     });
+    
+    //app.post('/api/classes')
 };

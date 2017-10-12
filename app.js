@@ -95,6 +95,4 @@ MongoClient.connect(url, function(err, database) {
     }
 });
 
-
-
 module.exports = app;
