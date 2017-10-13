@@ -24,7 +24,7 @@ block content
                     h4.modal-title New Class
                     hr
                 .modal-body
-                    form#form_add_class(name='newClass', method='post', action='/classes/newClass')
+                    form#form_add_class
                         span Class Name  
                         input#input_name(type='text', placeholder='Class Name', name='name', required)
                         br
@@ -37,7 +37,7 @@ block content
                         input#input_year(name='year', onkeypress='return event.charCode >= 48 && event.charCode <= 57')
                         br
                         br
-                        button#submit_class(type='submit') submit
+                        button#submit_class(type='button', onClick='submitNewClass()') submit
     br
     br
     button.bttn-minimal.bttn-xs.bttn-danger.classLinks(type='button', data-toggle='modal', data-target='.del-class') Delete Class

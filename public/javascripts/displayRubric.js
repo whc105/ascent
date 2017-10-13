@@ -1,25 +1,29 @@
 /*global $*/
+
+var rubricList = [];
 $(function() {
-    searchRubric();
+    $.ajax({
+        url: '/api/rubrics',
+        method: 'GET',
+        success: function(response) {
+            rubricList = response;
+            console.log(rubricList)
+        }
+    });
 });
 
-function searchRubric() { //Searches for Rubric in DB
-    $('#search_rubric').on('submit', function(event) {
-        event.preventDefault();
-        var search = $('#rubricSearch');
-        $.ajax({
-            url: '/rubrics/getRubricJSON',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({rubricName:search.val()}),
-            success: function(response) {
-                $('tbody').empty();
-                $('#submit_student').click();
-                parseData(response[0], 'table');
-                search.val('');
-            }
-        });
+function searchRubric() { //Searches for Rubric
+    var search = $('#rubricSearch').val().toLowerCase();
+    var searchResult = rubricList.filter(function(rubric) {
+        if (rubric.rubricName.toLowerCase() === search) {
+            return rubric;
+        }
     });
+    
+    $('tbody').empty();
+    $('#submit_student').click();
+    
+    parseData(searchResult[0], 'table');
 }
 
 function parseData(rubricObject, domReference) {
@@ -50,3 +54,23 @@ function parseData(rubricObject, domReference) {
 function printPage(){
     window.print();
 }
+
+/*
+$('#search_rubric').on('submit', function(event) {
+        event.preventDefault();
+        var search = $('#rubricSearch');
+        $.ajax({
+            url: '/api/rubrics/getRubric',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({rubricName:search.val()}),
+            success: function(response) {
+                console.log(response)
+                $('tbody').empty();
+                $('#submit_student').click();
+                parseData(response[0], 'table');
+                search.val('');
+            }
+        });
+    });
+    */
