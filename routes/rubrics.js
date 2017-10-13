@@ -29,26 +29,6 @@ router.get('/removeRubric', function(req, res, next) {
     res.render('removeRubric');
 });
 
-//Get rubric JSON structure
-router.post('/getRubricJSON', function(req, res, next) {
-    var searchData = req.body.rubricName.toLowerCase();
-    console.log('Sucessful connection');
-    var rubrics = db.collection('rubrics');
-    rubrics.find().toArray(function(err, result) {
-        if (err) {
-            console.log(err);
-        } else {
-            var rubricList = [];
-            for (var count = 0; count < result.length; count++) {
-                if (result[count].rubricName.toLowerCase() === searchData) {
-                    rubricList.push(result[count]);
-                }
-            }
-            res.send(rubricList);
-        }
-    });
-});
-
 //submitting the rubric function 
 router.post('/rubricCreator', function(req, res){
     var rubricCollection = db.collection('rubrics');
