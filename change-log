@@ -9,6 +9,10 @@ Note
 To-Do
 -Rebuild index page
 
+October 12 2017
+-Fixed a bug, on boot, where the site will not load if it was fetching for data.
+-Moved server creation to express
+
 October 11 2017
 -Added more API endpoints
 

@@ -25,9 +25,6 @@ const port = require('./config/config.js').PORT;
 
 var app = express();
 //Creates server
-app.listen(port, function() {
-    console.log("Ascent is now running");
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -97,4 +94,6 @@ MongoClient.connect(url, function(err, database) {
     }
 });
 
-module.exports = app;
+app.listen(port, function() {
+    console.log("Ascent is now running");
+});
