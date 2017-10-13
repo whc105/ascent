@@ -6,10 +6,8 @@ block content
     div(align='center')
         h2 Search for a Rubric
         br
-        form#search_rubric(name='search')
-            input(id='rubricSearch', name='rubricName', type='text', placeholder='enter rubric name here')
-            &nbsp
-            button#submit_form(class='bttn-simple bttn-xs bttn-primary', type='submit') Submit
+        input(id='rubricSearch', name='rubricName', type='text', placeholder='enter rubric name here')
+        button#submit_form(class='bttn-simple bttn-xs bttn-primary', type='button', onclick='searchRubric()') Submit
     br
     div#printDiv
         table.table.table-bordered.table-hover(border='1')
