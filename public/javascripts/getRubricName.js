@@ -1,7 +1,7 @@
 /* global $*/
 $(function() {
     $.ajax({
-        url: '/classes/' + $('.classID').text() + '/newAssignment/getRubricName',
+        url: '/api/rubrics',
         method: 'GET',
         success: function (response) {
             console.log('getting rubric');
