@@ -21,16 +21,15 @@ var faculty = require('./routes/faculty');
 const MongoClient = require('mongodb').MongoClient;
 const keys = require('./config/config.js').keys;
 const url = keys.mongoURI;
-
-var internalTesting = require('./routes/internal-testing')
+const port = require('./config/config.js').PORT;
 
 var app = express();
+//Creates server
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -53,11 +52,13 @@ studentRoutes(app);
 const assignmentRoutes = require('./api/assignmentRoutes');
 assignmentRoutes(app);
 
+const rubricRoutes = require('./api/rubricRoutes');
+rubricRoutes(app);
+
 app.use('/', index);
 app.use('/studentList', studentList);
 app.use('/signUp', signUp);
 app.use('/userLogIn', userLogIn);
-//app.use('/examplePage', examplePage);
 app.use('/PageNotFound404', PageNotFound404);
 app.use('/classes', classes);
 app.use('/rubrics', rubrics);
@@ -65,8 +66,6 @@ app.use('/statistics', statistics);
 app.use('/classStats', classStats);
 app.use('/assignmentStats', assignmentStats);
 app.use('/faculty', faculty);
-
-app.use('/testing', internalTesting);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -95,6 +94,6 @@ MongoClient.connect(url, function(err, database) {
     }
 });
 
-
-
-module.exports = app;
+app.listen(port, function() {
+    console.log("Ascent is now running");
+});

@@ -1,7 +1,7 @@
 /*global $*/
 $(function() {
     $.ajax({
-        url: '/rubrics/getAllRubricNames',
+        url: '/api/rubrics',
         method: 'GET',
         success: function(response) {
             response.forEach(function(name) {

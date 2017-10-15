@@ -99,11 +99,11 @@ block content
                     i.fa.fa-times(aria-hidden='true')
                 h4 Remove A Student
                 button.bttn-unite.bttn-sm.bttn-primary(id='select-all-button', type='button') Select All
-                form#form_del_student(name="removeStudent", method='post', action='/studentList/removeStudent')
+                form#form_del_student(name="removeStudent", method='post', action='/api/students/remove')
                     div#remove_list
                         each students, i in studentList
                             br
-                            input.input_id(type='checkbox', name='#{students.id}')
+                            input(type='checkbox', name='id', value='#{students.id}')
                             br
                             |Name: #{students.fName} #{students.lName}
                             br
