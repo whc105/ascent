@@ -1,3 +1,5 @@
+//look at me its an edit
+
 var express = require('express');
 var session = require('express-session');
 var path = require('path');
@@ -23,6 +25,10 @@ const keys = require('./config/config.js').keys;
 const url = keys.mongoURI;
 const port = require('./config/config.js').PORT;
 
+const authRoutes = require('./auth/authRoutes');
+
+const passport = require('passport');
+
 var app = express();
 //Creates server
 
@@ -30,10 +36,14 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+require('./auth/passport');
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true})); //changed from false to true, allows full parsing of objects, might be needed for session code
+
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ //Session information to track the logged in user
@@ -42,6 +52,12 @@ app.use(session({ //Session information to track the logged in user
     resave : false, //saves even when session is not changed
     saveUninitialized : true //save new even when session isnt fully initialized
 })); //Use for session storage
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+authRoutes(app);
 
 const classRoutes = require('./api/classRoutes');
 classRoutes(app);
