@@ -30,7 +30,7 @@ MongoClient.connect(keys.mongoURI, (err, db) => {
             authID: profile.id,
             email: profile.emails[0].value,
         };
-        db.collection('users').findOne({ userID: profile.id }, (err, doc) => {
+        db.collection('users').findOne({ authID: profile.id }, (err, doc) => {
             if (err) console.log(err.stack);
             if (!doc) {
                 db.collection('users').insertOne(userObj, (err, res) => {
