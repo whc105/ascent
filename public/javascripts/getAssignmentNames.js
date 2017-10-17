@@ -3,9 +3,10 @@ $(function() {
     getAssignments();
 });
 
-function getAssignments(className) {
+function getAssignments() {
+    var classID = $('.classID').text()
     $.ajax({
-        url: '/classes/' + $('.classID').text() + '/removeAssignment/getAssignmentName',
+        url: '/api/classes/getAssignmentNames/' + classID,
         method: 'GET',
         success: function (response) {
             response.forEach(function(assignment) {
