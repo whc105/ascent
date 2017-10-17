@@ -135,11 +135,6 @@ router.post('/:className/removeAssignment', function (req, res) {
     res.redirect('/classes/' + className);
 });
 
-router.get('/:className/removeAssignment/getAssignmentName', function(req, res) {
-    var className = req.params.className;
-    getAssignmentNames(db, res, className);
-});
-
 //Gets all students that are not in the class
 router.get('/:className/addStudents', function(req, res) {
     var className = req.params.className;
@@ -293,24 +288,6 @@ function getAllInClassStudents(db, res, className) {
             }
             else {
                 res.render('removeStudents', {className:className, availableStudents: result});
-            }
-        });
-    });
-}
-
-//Get all available assignment names
-function getAssignmentNames(db, res, className) {
-    var assignments = db.collection('assignments');
-    var classes = db.collection('classes');
-    getClassID(className, classes)
-    .then(function(classID) {
-        assignments.find({'classID':classID},{'assignmentName':1,'_id':0}).toArray(function(err, result) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                console.log(result);
-                res.send(result);
             }
         });
     });

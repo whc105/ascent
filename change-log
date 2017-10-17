@@ -10,6 +10,7 @@ To-Do
 -Rebuild index page
 
 October 12 2017
+-Heavily Optimized rubric search functionality
 -Fixed a bug, on boot, where the site will not load if it was fetching for data.
 -Moved server creation to express
 
