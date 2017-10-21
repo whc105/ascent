@@ -32,7 +32,7 @@ function child(){
                 });
             });
            // $('#LogInOut').attr('onClick', 'window.location.href= "./classStats"');
-        }else{
+        } else{
             $('#LogInOut').attr('onClick', 'window.location.href= "./userLogIn"');
             $('#LogInOut').prop('textContent',"Log In");
         }

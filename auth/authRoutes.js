@@ -13,7 +13,6 @@ module.exports = app => {
         if (req.user) {
             res.send(req.user);
         } else {
-            console.log(null)
             res.send(null);
         }
     });
