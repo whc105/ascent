@@ -7,6 +7,7 @@ $(function() {
         url: '/api/classes',
         method: 'GET',
         success: function (response) {
+            //Append to the add/remove class select-inputs
             response.forEach(function(name) {
                 $('#input_class').append($('<option>', {
                     value: name.name,
@@ -32,4 +33,18 @@ function submitNewClass() {
             window.location.replace('/classes');
         }
     });
+}
+
+function submitRemoveClass() {
+    var className = {name: $('#input_class').val()};
+    $.ajax({
+        url: '/api/classes/removeClass',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(className),
+        success: function(response) {
+            window.location.replace('/classes');
+        }
+    })
+    
 }

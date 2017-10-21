@@ -33,44 +33,6 @@ router.get('/', function(req, res, next) {
 router.post('/newClass/findTeacher', function(req, red) {
 });
 
-
-//Removes class from database
-router.post('/removeClass', function(req, res) {
-    purgeAllClassReferences(req.body.name);
-    res.redirect('../classes');
-});
-
-function purgeAllClassReferences (className) {
-    var classes = db.collection('classes');
-    var assignments = db.collection('assignments');
-    var students = db.collection('students');
-    //find class with name of className
-    //assignments.remove(anything with a reference to className.id)
-    classes.find({'name':className}).toArray(function(err, result) {
-        if (err) {
-            console.log(err);
-        } else {
-            for (var count = 0; count < result[0].assignments.length; count++) {
-                assignments.remove({'assignmentName':result[0].assignments[count], 'className':className}, function(err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                });
-            }
-            classes.remove({'name':className}, function(err) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            students.updateMany({},{$pull:{'classes':className}}, function(err) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-        }
-    });
-}
-
 //Renders all the data for the individual class
 router.get('/:className', function(req, res, next) {
     var className = req.params.className;

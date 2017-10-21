@@ -61,4 +61,33 @@ module.exports = app => {
             }
         });
     });
+    
+    app.post('/api/classes/removeClass', function(req, res) {
+        const db = req.app.locals.db;
+        const className = req.body.name;
+        db.collection('classes').find({'name':className}).toArray(function(err, result) {
+            if (err) {
+                console.log(err);
+            } else {
+                for (var count = 0; count < result[0].assignments.length; count++) {
+                    db.collection('assignments').remove({'assignmentName':result[0].assignments[count], 'className':className}, function(err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+                db.collection('classes').remove({'name':className}, function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                db.collection('students').updateMany({},{$pull:{'classes':className}}, function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+                res.send('Success');
+            }
+        });
+    });
 };
