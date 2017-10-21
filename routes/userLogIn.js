@@ -22,8 +22,6 @@ router.get('/', function(req, res) {
     }else{
         res.render('userLogIn', {title: 'Log In'});
     }
-    //res.send("Values escaped");
-    //var userName = req.params.id;
 });
 
 //trying to get mongodb connection
