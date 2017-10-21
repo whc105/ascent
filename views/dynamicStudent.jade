@@ -1,8 +1,8 @@
 extends layout
 block content
-    link(rel='stylesheet', href='/stylesheets/bootstrap-css/bootstrap-switch.min.css')
     link(rel='stylesheet', href='/stylesheets/dynamicStudent.css')
-    script(src='/javascripts/bootstrap-js/bootstrap-switch.min.js')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js')
     script(src='/javascripts/dynamicStudent.js')
     script.
         var enrolledClasses = !{JSON.stringify(enrolledClasses)}
