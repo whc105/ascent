@@ -5,7 +5,6 @@ const MongoClient = mongodb.MongoClient;
 const keys = require('../config/config.js').keys;
 const url = keys.mongoURI;
 
-
 var db;
 var addAssignment = require('../serverJS/addAssignment.js');
 

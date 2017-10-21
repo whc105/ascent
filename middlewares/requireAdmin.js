@@ -5,4 +5,4 @@ module.exports = (req, res, next) => {
 		return res.status(403).send({ error: 'You do not have permission to access this resource' });
 	}
 	next();
-}
+};
