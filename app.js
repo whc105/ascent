@@ -29,12 +29,12 @@ const passport = require('passport');
 
 var app = express();
 //Creates server
+require('./auth/passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-require('./auth/passport');
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
