@@ -14,7 +14,7 @@ MongoClient.connect(keys.mongoURI, (err, db) => {
     });
   
     passport.deserializeUser((id, done) => {
-        db.collection('users').findOne({ _id: ObjectID(id) }, (err, user) => {
+        db.collection('users').findOne({ _id: ObjectID(id) }, {authID:0}, (err, user) => {
             if (err) console.log(err.stack);
             done(null, user);
         });

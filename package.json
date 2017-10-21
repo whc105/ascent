@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "dependencies": {
     "ajax": "0.0.4",
@@ -45,5 +45,8 @@
   "main": "app.js",
   "author": "Mirjan Neza, Wei Huan Chen, Alexander Andrews",
   "license": "ISC",
-  "description": "Student Analysis Service"
+  "description": "Student Analysis Service",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
 }
