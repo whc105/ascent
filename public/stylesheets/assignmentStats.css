@@ -30,3 +30,8 @@
 .filter-tool, .dropdown {
     display: inline-block;
 }
+
+#topic-avg-chart {
+    display: inline-block;
+    width: 50%;
+}

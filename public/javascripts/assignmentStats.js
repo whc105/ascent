@@ -6,15 +6,19 @@ var averageBarTopic;
 var gradedStudentsChart;
 var studentPerformanceChart;
 var studentAvgChart;
+var topicAvgChart;
 
 var assignments = [];
 $(function() {
+    console.log("WE OUT HERE LIKE HENNY NIGGA");
     $('#topic-chart').hide();
     $('#graded-students').hide();
     $('#perf-chart').hide();
     $('#scoring-avg-chart').hide();
+    $('#topic-avg-chart').hide();
     getStudentProfile();
     getAssignmentData();
+    changeChart();
 });
 
 function getStudentProfile() {
@@ -132,12 +136,32 @@ function createChart() {
         type: 'line',
         data: {
             datasets:[{
-                label: 'Students Average',
+                label: 'Class Average',
                 data: null,
                 backgroundColor: 'rgba(247, 186, 2, 0.2)',
                 borderColor: 'rgba(247, 186, 2, 1)'
             }, {
                 label: 'Assignment Score',
+                data: null,
+                type: 'bubble',
+                backgroundColor: 'rgba(2, 178, 247, 0.2)',
+                borderColor: 'rgba(2, 178, 247, 1)'
+            }],
+            labels: null,
+        }
+    });
+    
+    var topicAvg = $('#topic-avg');
+    topicAvgChart = new Chart(topicAvg, {
+        type: 'line',
+        data: {
+            datasets:[{
+                label: 'Class Topic Average',
+                data: null,
+                backgroundColor: 'rgba(247, 186, 2, 0.2)',
+                borderColor: 'rgba(247, 186, 2, 1)'
+            }, {
+                label: 'Topic Average by Student',
                 data: null,
                 type: 'bubble',
                 backgroundColor: 'rgba(2, 178, 247, 0.2)',
@@ -192,6 +216,7 @@ function changeChart() { //Updates the chart with new assignment
         overallAssignmentAverage(assignmentStudents);
         getAverage(assignmentStats);
         calculateGraded(assignmentStats, topicsList.length);
+        showTopicAverageChart();
     }
 }
 
@@ -338,6 +363,41 @@ function overallAssignmentAverage(studentData) {
     studentAvgChart.update();
     $('#scoring-avg-chart').show();
 }
+
+//here
+function showTopicAverageChart(studentData){
+    // console.log(studentData);
+    // var gradedCount = 0;
+    // var gradedAvg = 0;
+    // for (var count = 0; count < studentData.length; count++) { //Calc graded student average
+    //     if (studentData[count].grades != -1) {
+    //         gradedAvg = gradedAvg + studentData[count].grades;
+    //         gradedCount++;
+    //     }
+    // }
+    // gradedAvg = (gradedAvg/gradedCount).toFixed(5) * 100;
+    // $('#assignment-avg').text('Assignment average is ' + gradedAvg + '%');
+    
+    // var avgLine = []; //Gets the average line for the scatter graph
+    // var avgLabels = []; //Gets student count
+    // var studentPlots = [];
+    // for (var count = 0; count < studentData.length; count++) {
+    //     avgLine.push(gradedAvg);
+    //     avgLabels.push(studentData[count].id);
+    //     if ((studentData[count].grades != -1)) {
+    //         studentPlots.push({x: count, y: (studentData[count].grades.toFixed(5)) * 100, r: 6}); //Plots the student points
+    //     } else {
+    //         studentPlots.push({x: count, y: 0}); //Plots the student points
+    //     }
+    // }
+    // topicAvgChart.data.datasets[0].data = avgLine;
+    // topicAvgChart.data.labels = avgLabels;
+    // topicAvgChart.data.datasets[1].data = studentPlots;
+    // topicAvgChart.update();
+    //show the chart
+    $('#topic-avg-chart').show();
+}
+
 
 function calculateGraded(studentData, topicsList) {
     var graded = 0;

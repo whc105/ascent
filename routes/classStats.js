@@ -4,8 +4,6 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const keys = require('../config/config.js').keys;
 const url = keys.mongoURI;
-
-
 var statistics = require('./statistics');
 
 var totalCount = 0; //Total number of students
