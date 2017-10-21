@@ -5,7 +5,6 @@ const MongoClient = mongodb.MongoClient;
 const keys = require('../config/config.js').keys;
 const url = keys.mongoURI;
 
-
 var db;
 var addAssignment = require('../serverJS/addAssignment.js');
 
@@ -29,71 +28,9 @@ router.get('/', function(req, res, next) {
     });
 });
 
-//Adds new class to database
-router.post('/newClass', function(req, res) {
-    var classes = db.collection('classes');
-    classes.find({}).toArray(function(err, result) {
-        if (err) {
-            console.log(err);
-        } else {
-            var uniqueID = 0;
-            if (result.length != 0) {
-                uniqueID = result[result.length - 1].id + 1;
-            }
-            var newClass = {id: uniqueID, name: req.body.name,
-            subject: req.body.subject, year: req.body.year,
-            students:[], assignments:[], teacher:[]};
-            classes.insert([newClass], function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            res.redirect('../classes');
-        }
-    });
-});
-
 //For later use after teachers are done
 router.post('/newClass/findTeacher', function(req, red) {
 });
-
-
-//Removes class from database
-router.post('/removeClass', function(req, res) {
-    purgeAllClassReferences(req.body.name);
-    res.redirect('../classes');
-});
-
-function purgeAllClassReferences (className) {
-    var classes = db.collection('classes');
-    var assignments = db.collection('assignments');
-    var students = db.collection('students');
-    //find class with name of className
-    //assignments.remove(anything with a reference to className.id)
-    classes.find({'name':className}).toArray(function(err, result) {
-        if (err) {
-            console.log(err);
-        } else {
-            for (var count = 0; count < result[0].assignments.length; count++) {
-                assignments.remove({'assignmentName':result[0].assignments[count], 'className':className}, function(err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                });
-            }
-            classes.remove({'name':className}, function(err) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            students.updateMany({},{$pull:{'classes':className}}, function(err) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-        }
-    });
-}
 
 //Renders all the data for the individual class
 router.get('/:className', function(req, res, next) {
@@ -146,11 +83,6 @@ router.post('/:className/newAssignment', function(req, res) {
     res.redirect('/classes/' + className);
 });
 
-//Gets all available rubric name
-router.get('/:className/newAssignment/getRubricName', function(req, res) {
-    getRubricNames(db, res);
-});
-
 //Renders Removes Assignment Page
 router.get('/:className/removeAssignment', function(req, res) {
     res.render('removeAssignment', {classID: req.params.className});
@@ -162,11 +94,6 @@ router.post('/:className/removeAssignment', function (req, res) {
     var className = req.params.className;
     removeAssignment(db, res, removeAssignmentName, className);
     res.redirect('/classes/' + className);
-});
-
-router.get('/:className/removeAssignment/getAssignmentName', function(req, res) {
-    var className = req.params.className;
-    getAssignmentNames(db, res, className);
 });
 
 //Gets all students that are not in the class
@@ -322,38 +249,6 @@ function getAllInClassStudents(db, res, className) {
             }
             else {
                 res.render('removeStudents', {className:className, availableStudents: result});
-            }
-        });
-    });
-}
-
-
-//Get all available rubric names
-function getRubricNames(db, res) {
-    var rubricCollection = db.collection('rubrics');
-    rubricCollection.find({},{'rubricName':1,'_id':0}).toArray(function(err, result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.send(result);
-        }
-    });
-}
-
-//Get all available assignment names
-function getAssignmentNames(db, res, className) {
-    var assignments = db.collection('assignments');
-    var classes = db.collection('classes');
-    getClassID(className, classes)
-    .then(function(classID) {
-        assignments.find({'classID':classID},{'assignmentName':1,'_id':0}).toArray(function(err, result) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                console.log(result);
-                res.send(result);
             }
         });
     });

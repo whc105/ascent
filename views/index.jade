@@ -2,7 +2,7 @@ extends layout
 block content
     link(rel='stylesheet', href='/stylesheets/index.css')
     script(src='/javascripts/logButton.js')
-    //wrapper div for boostrap restriction
+    script(src='/javascripts/authenticateGoogle.js')
     div.container
         #header
             div(style='background-color:#303030; padding-bottom: 10px; padding-left:10px; padding-right:10px;')
@@ -15,6 +15,8 @@ block content
                     .btn-group-vertical(role='group', aria-label='...')
                         button.bttn-bordered.bttn-md(id = "LogInOut" , type='button')
                         br
+                        br
+                        button.bttn-bordered.bttn-md(id='log-in-out-google', type='button')
                 //contains the sign up, log in
                 #content
                     //Featurette

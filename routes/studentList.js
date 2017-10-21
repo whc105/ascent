@@ -22,7 +22,15 @@ MongoClient.connect(url, function(err, database) {
 
 //Renders student list
 router.get('/', function(req, res) {
-    studentsToArray(db, res);
+    var collection = db.collection('students');
+    collection.find({}).toArray(function(err, result){
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('studentList', {'studentList': result});
+        }
+    });
 });
 
 //CSV upload, post request to database
@@ -50,24 +58,6 @@ router.post('/newStudent', function(req, res){
     };
     addStudent(db, res, newStudent);
     res.redirect('/studentList');
-});
-
-
-router.get('/removeStudent', function(req, res) {
-    var collection = db.collection('students');
-    collection.find({}).toArray(function(err, result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('removeStudent', {studentList: result});
-        }
-    });
-});
-
-router.post('/removeStudent', function(req, res){
-    var studentID = req.body;
-    checkIfExist(db, res, studentID);
 });
 
 //Creates a dynamic page for each student
@@ -117,7 +107,6 @@ var getEnrolledClasses = function (classCollection, studentID) {
     });
 };
 
-
 //Updates student data with the new data from the form
 function updateStudentData (db, res, studentID, update_student) {
     var collection = db.collection('students');
@@ -152,59 +141,6 @@ function parseCSVFile(req, res, db) {
                 console.log('end');
             });
             res.redirect('studentList');
-        }
-    });
-}
-
-//Finds all the students and turns it into array
-function studentsToArray(db, res) {
-    var collection = db.collection('students');
-    collection.find({}).toArray(function(err, result){
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('studentList', {'studentList': result});
-        }
-    });
-}
-
-function checkIfExist(db, res, studentID) {
-    studentID = Object.keys(studentID);
-    for (var count = 0; count < Object.keys(studentID).length; count++) {
-        console.log(studentID[count]);
-        removeStudent(db, res, studentID[count]);
-        removeFromClass(db, res, studentID[count]);
-        removeFromAssignment(db, res, studentID[count]);
-    }
-    res.redirect('/studentList');
-}
-
-//remove student
-function removeStudent (db, res, studentID) {
-    var collection = db.collection('students');
-    collection.remove({'id' : studentID}, function(err, result){
-        if (err) {
-           console.log(err);
-        } 
-    });
-}
-
-//remove student from class
-function removeFromClass (db, res, studentID) {
-    var classCollection = db.collection('classes');
-    classCollection.updateMany({'students':studentID}, {$pull:{'students':studentID}}, function(err, result) {
-        if (err) {
-            console.log(err);
-        }
-    });
-}
-
-function removeFromAssignment (db, res, studentID) {
-    var assignmentCollection = db.collection('assignments');
-    assignmentCollection.updateMany({}, {$pull:{'students':{'id':studentID}}}, function(err) {
-        if (err) {
-            console.log(err);
         }
     });
 }

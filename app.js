@@ -21,20 +21,27 @@ var faculty = require('./routes/faculty');
 const MongoClient = require('mongodb').MongoClient;
 const keys = require('./config/config.js').keys;
 const url = keys.mongoURI;
+const port = require('./config/config.js').PORT;
 
-var internalTesting = require('./routes/internal-testing')
+const authRoutes = require('./auth/authRoutes');
+
+const passport = require('passport');
 
 var app = express();
+//Creates server
+require('./auth/passport');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true})); //changed from false to true, allows full parsing of objects, might be needed for session code
+
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ //Session information to track the logged in user
@@ -43,6 +50,12 @@ app.use(session({ //Session information to track the logged in user
     resave : false, //saves even when session is not changed
     saveUninitialized : true //save new even when session isnt fully initialized
 })); //Use for session storage
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+authRoutes(app);
 
 const classRoutes = require('./api/classRoutes');
 classRoutes(app);
@@ -53,11 +66,13 @@ studentRoutes(app);
 const assignmentRoutes = require('./api/assignmentRoutes');
 assignmentRoutes(app);
 
+const rubricRoutes = require('./api/rubricRoutes');
+rubricRoutes(app);
+
 app.use('/', index);
 app.use('/studentList', studentList);
 app.use('/signUp', signUp);
 app.use('/userLogIn', userLogIn);
-//app.use('/examplePage', examplePage);
 app.use('/PageNotFound404', PageNotFound404);
 app.use('/classes', classes);
 app.use('/rubrics', rubrics);
@@ -65,8 +80,6 @@ app.use('/statistics', statistics);
 app.use('/classStats', classStats);
 app.use('/assignmentStats', assignmentStats);
 app.use('/faculty', faculty);
-
-app.use('/testing', internalTesting);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -95,6 +108,6 @@ MongoClient.connect(url, function(err, database) {
     }
 });
 
-
-
-module.exports = app;
+app.listen(port, function() {
+    console.log("Ascent is now running");
+});

@@ -8,4 +8,13 @@ module.exports = app => {
             res.send(docs);
         });
     });
+    
+    app.get('/api/assignments/:id', (req, res) => {
+        const db = req.app.locals.db;
+        const id = parseInt(req.params.id);
+        db.collection('assignments').find({ id }).toArray( (err, docs) => {
+            if (err) console.log(err.stack);
+            res.send(docs);
+        });
+    });
 };

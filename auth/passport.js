@@ -1,0 +1,56 @@
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20');
+const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
+
+const keys = require('../config/config').keys;
+
+MongoClient.connect(keys.mongoURI, (err, db) => {
+    if (err) console.log(err.stack);
+    console.log('successfully connected to db for auth');
+    
+    passport.serializeUser((user, done) => {
+        done(null, user._id);
+    });
+  
+    passport.deserializeUser((id, done) => {
+        db.collection('users').findOne({ _id: ObjectID(id) }, {authID:0}, (err, user) => {
+            if (err) console.log(err.stack);
+            done(null, user);
+        });
+    });
+  
+    passport.use(new GoogleStrategy({
+        clientID: keys.googleClientID,
+        clientSecret: keys.googleClientSecret,
+        callbackURL: '/auth/google/callback',
+    }, (accessToken, refreshToken, profile, done) => {
+        //default user object
+        db.collection('users').find().sort({id:-1}).limit(1).toArray((err, docs) => {
+            if (err) console.log(err.stack)
+            let id = docs.length === 0 ? 0 : docs[0].id + 1;
+            const userObj = {
+                authID: profile.id,
+                email: profile.emails[0].value,
+                loggedDates: [],
+                id,
+                permissionLevel: 1 //hard coded for now
+            };
+            db.collection('users').findOne({ authID: profile.id }, (err, doc) => {
+                if (err) console.log(err.stack);
+                if (!doc) {
+                    db.collection('users').insertOne(userObj, (err, res) => {
+                        if (err) console.log(err.stack);
+                        console.log(`user registered with email ${userObj.email}`);
+                        done(null, res.ops[0]);
+                    });
+                } else {
+                    console.log(`user with email ${userObj.email} logged in`);
+                    done(null, doc);
+                }
+            });
+        });
+        
+    }
+  ));
+});

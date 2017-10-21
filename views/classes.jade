@@ -3,6 +3,8 @@ block content
     link(rel='stylesheet', href='/stylesheets/classes.css')
     script(src='/javascripts/classes.js')
     h3 Classes
+    div.all-classes
+    
     each classItem, i in classesList
         -dynamicClassPage = '/classes/' + classItem.name
         div.class-box
@@ -24,7 +26,7 @@ block content
                     h4.modal-title New Class
                     hr
                 .modal-body
-                    form#form_add_class(name='newClass', method='post', action='/classes/newClass')
+                    form#form_add_class
                         span Class Name  
                         input#input_name(type='text', placeholder='Class Name', name='name', required)
                         br
@@ -37,7 +39,7 @@ block content
                         input#input_year(name='year', onkeypress='return event.charCode >= 48 && event.charCode <= 57')
                         br
                         br
-                        button#submit_class(type='submit') submit
+                        button#submit_class(type='button', onClick='submitNewClass()') Submit
     br
     br
     button.bttn-minimal.bttn-xs.bttn-danger.classLinks(type='button', data-toggle='modal', data-target='.del-class') Delete Class
@@ -48,9 +50,9 @@ block content
                     h4.modal-title Delete Class
                     hr
                 .modal-body
-                    form#form_remove_class(name='removeClass', method='post', action='/classes/removeClass')
+                    form#form_remove_class
                         span Class Name 
                         select#input_class(name='name')
                         br
                         br
-                        button#submit_class(type='submit') submit
+                        button#submit_class(type='button', onClick='submitRemoveClass()') Submit

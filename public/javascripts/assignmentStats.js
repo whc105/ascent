@@ -21,7 +21,7 @@ $(function() {
     changeChart();
 });
 
-function getStudentProfile() {
+function getStudentProfile() { //Gets student data
     $.ajax({
         url:'/api/students',
         method: 'GET',
