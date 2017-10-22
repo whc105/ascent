@@ -1,43 +1,27 @@
 /*global $*/
+
 $(function() {
-    child();
-    //if($(logInStatus).prop('name') === 'true') {
-});
-function child(){
-    var logInStatus = false;
     $.ajax({
-        url:'/isLoggedIn',
+        url: '/api/current-user',
         method: 'GET',
-        success: function(logInStatuss) {
-            if(typeof logInStatuss != undefined && logInStatuss != "")
-            {
-                logInStatus = logInStatuss;
+        success: function(response) { //Checks if the user is logged in or out
+            if (response != '') {
+                $('#log-in-out').text('Log Out');
+                logInWithGoogle(true);
+            } else {
+                $('#log-in-out').text('Log In');
+                logInWithGoogle(false);
             }
         }
-    })
-    .done(function(data) {
-        if(logInStatus == true){
-            $('#LogInOut').prop('textContent',"Log Out");
-            $('#LogInOut').on('click', function() {
-                $.ajax({
-                    url:'/logOut',
-                    method: 'POST',
-                    success: function(response) {
-                        if ($('#LogInOut').text('Log Out')) {
-                            alert("You Have Logged Out");
-                        };
-                        $('#LogInOut').attr('onClick', 'window.location.href= "./userLogIn"');
-                        $('#LogInOut').prop('textContent',"Log In");
-                    }
-                });
-            });
-           // $('#LogInOut').attr('onClick', 'window.location.href= "./classStats"');
-        } else{
-            $('#LogInOut').attr('onClick', 'window.location.href= "./userLogIn"');
-            $('#LogInOut').prop('textContent',"Log In");
+    });
+});
+
+function logInWithGoogle(isLoggedIn) {
+    $('#log-in-out').on('click', function() {
+        if (isLoggedIn) {
+            window.location.replace('/auth/logout');
+        } else {
+            window.location.replace('/login');
         }
-    })
-    .fail(function() {
-        console.log("There was an error");
     });
 }

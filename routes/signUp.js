@@ -23,13 +23,13 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res){
     var permissionLevel = -1;
-    if (req.body.key === 'HJjhKr2') {
+    if (req.body.key === 'hSkfgruIB0') {
         permissionLevel = 3;
-    } else if (req.body.key === 'jk5YGK61p') {
+    } else if (req.body.key === 'wP0zshIQNL') {
         permissionLevel = 2;
-    } else if (req.body.key === '5hyjk4GF') {
+    } else if (req.body.key === '34XeKOgOa6') {
         permissionLevel = 1;
-    } else if (req.body.key === '4jk2GF3Jn') {
+    } else if (req.body.key === 'SfnlaTKH2J') {
         permissionLevel = 0;
     } else {
         res.send('The key you submitted is wrong');
