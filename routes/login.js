@@ -6,7 +6,11 @@ const keys = require('../config/config.js').keys;
 const url = keys.mongoURI;
 
 router.get('/', function(req, res) {
-    res.render('login');
+    if (req.user) {
+        res.redirect('/');
+    } else {
+        res.render('login');
+    }
 });
 
 module.exports = router;

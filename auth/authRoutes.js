@@ -1,5 +1,4 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 
 module.exports = app => {
     app.get('/auth/google', passport.authenticate('google', {

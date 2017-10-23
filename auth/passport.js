@@ -8,7 +8,7 @@ const keys = require('../config/config').keys;
 
 MongoClient.connect(keys.mongoURI, (err, db) => {
     if (err) console.log(err.stack);
-    console.log('successfully connected to db for auth');
+    console.log('Successfully connected to db for auth');
 
     passport.serializeUser((user, done) => {
         done(null, user._id);
