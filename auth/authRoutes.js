@@ -6,7 +6,7 @@ module.exports = app => {
     }));
     
     app.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
-        res.redirect('/');
+        res.redirect('https://ascent-db-alt-althe.c9users.io');
     });
     
     app.get('/api/current-user', (req, res) => {
@@ -16,6 +16,14 @@ module.exports = app => {
             res.send(null);
         }
     });
+    
+    app.post('/login', passport.authenticate('local', {
+        successRedirect: '/', failureRedirect: '/login'
+        }), (req, res) => {
+            res.redirect('/');
+        }
+    );
+
     
     app.get('/auth/logout', (req, res) => {
         if(req.user) {

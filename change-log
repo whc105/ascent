@@ -9,6 +9,15 @@ Note
 To-Do
 -Rebuild index page
 
+October 20 2017
+-Migrated to CDN to decrease server load
+-Added an API endpoint for removing classes
+-Removed unnecessary Mongo connection on certain pages
+-Added permission levels
+
+October 15 2017
+-Added Google Authentication
+
 October 12 2017
 -Heavily Optimized rubric search functionality
 -Fixed a bug, on boot, where the site will not load if it was fetching for data.

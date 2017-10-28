@@ -1,8 +1,8 @@
 extends layout
 block content
     link(rel='stylesheet', href='/stylesheets/studentList.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap-css/bootstrap-switch.min.css')
-    script(src='/javascripts/bootstrap-js/bootstrap-switch.min.js')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js')
     
     script.
         var students = !{JSON.stringify(studentList)}
@@ -137,14 +137,12 @@ block content
                     ul.dropdown-menu(aria-labelledby='dropdownMenuGender')
                         li
                             div.input-group
-                                &nbsp
-                                |Show M 
+                                | Show M 
                                 input(type='checkbox', name='filter-male', id='filter-male')
                             br
                         li
                             div.input-group
-                                &nbsp
-                                |Show F 
+                                | Show F 
                                 input(type='checkbox', name='filter-fmale', id='filter-fmale')
                 br
                 div.dropdown
@@ -154,8 +152,7 @@ block content
                     ul.dropdown-menu(aria-labelledby='dropdownMenuSPED')
                         li
                             div.input-group
-                                &nbsp
-                                |Show SPED 
+                                | Show SPED 
                                 input(type='checkbox', name='filter-sped', id='filter-sped')
                 br
                 div.dropdown
@@ -165,8 +162,7 @@ block content
                     ul.dropdown-menu(aria-labelledby='dropdownMenuELL')
                         li
                             div.input-group
-                                &nbsp
-                                |Show ELL 
+                                | Show ELL 
                                 input(type='checkbox', name='filter-ell', id='filter-ell')
                 br
                 button.bttn-unite.bttn-xs(id='filter-button')
