@@ -10,7 +10,7 @@ var topicAvgChart;
 
 var assignments = [];
 $(function() {
-    console.log("WE OUT HERE LIKE HENNY NIGGA");
+    console.log("Test output");
     $('#topic-chart').hide();
     $('#graded-students').hide();
     $('#perf-chart').hide();
