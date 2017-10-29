@@ -9,6 +9,12 @@ Note
 To-Do
 -Rebuild index page
 
+October 22 2017
+-Added sign-up by key
+-Added account login/logout system
+-Associated keys to different permission levels
+-Connected Google login functionality to account logins
+
 October 20 2017
 -Migrated to CDN to decrease server load
 -Added an API endpoint for removing classes
