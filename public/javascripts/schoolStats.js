@@ -209,6 +209,10 @@ function basicAnalysis() {
             }]
         },
         options: {
+            title: {
+                display: true,
+                text: 'Grade Levels'
+            },
             legend: {
                 labels: {
                     boxWidth: 15
@@ -241,6 +245,10 @@ function basicAnalysis() {
             }]
         },
         options: {
+            title: {
+                display: true,
+                text: 'Reports'
+            },
             legend: {
                 labels: {
                     boxWidth: 15
@@ -274,6 +282,10 @@ function basicAnalysis() {
             }]
         },
         options: {
+            title: {
+                display: true,
+                text: 'Students Performance'
+            },
             legend: {
                 labels: {
                     boxWidth: 15
@@ -375,7 +387,7 @@ function aboveXSliderChart() {
     var val = 65;
     var aboveX = $('#aboveXChart');
     var aboveXChart = new Chart(aboveX,{
-        responsive:true,
+        responsive: true,
         type: 'pie',
         data : {
             labels: ['More than or equal to ' + val + '%', 'Less ' + val + '%'],
