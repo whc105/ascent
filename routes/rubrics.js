@@ -4,7 +4,7 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const keys = require('../config/config.js').keys;
 const url = keys.mongoURI;
-
+const getClassData = require('../libraries/getClassData.js');
 var db;
 
 MongoClient.connect(url, function(err, database) {
@@ -12,7 +12,7 @@ MongoClient.connect(url, function(err, database) {
         console.log(err);
     }
     else {
-        db = database;   
+        db = database;
     }
 });
 
@@ -87,10 +87,9 @@ router.post('/gradeStudent', function(req, res) {
 //Gets students grades
 router.post('/getGrades', function(req, res) {
     var assignmentCollection = db.collection('assignments');
-    var classes = db.collection('classes');
     var assignmentName = req.body.assignmentName;
     var className = req.body.className;
-    getClassID(className, classes)
+    getClassData.getClassID(className, db)
     .then(function(classID) {
         assignmentCollection.find({'classID':classID, 'assignmentName':assignmentName}, {'_id':0, 'students':1}).toArray(function(err, result) {
             if (err) {
@@ -102,20 +101,5 @@ router.post('/getGrades', function(req, res) {
         });
     });
 });
-
-//Get classID
-var getClassID = function (className, classesCollection) {
-    var classID;
-    return new Promise(function(resolve) {
-        classesCollection.find({'name':className}).toArray(function(err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                classID = result[0].id;
-                resolve(classID);
-            }
-        });
-    });
-};
 
 module.exports = router;
