@@ -13,17 +13,17 @@
 
 .row {
     display: inline-block;
-}
-
-.row1 {
-    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 30px
 }
 
 #slider, #amount {
     text-align: left;
-    width: 30%;
+    width: 50%;
 }
 
-#slider-gpa {
+.chart-container {
     display: inline-block;
+    height: 30vh;
+    width: 30vw;
 }

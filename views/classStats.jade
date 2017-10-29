@@ -7,17 +7,4 @@ block content
             h2 Class Statistics
             br
             | Select 
-            select#classList(name= 'classes', onChange = 'optionSelectPost()')
-    div.graphParts(id = 'graphParts', name = 'graphParts', style = "display:none")
-        div.graphSelection(id = 'graphSelection')
-                p
-                    B Select Catagories
-                input(type='text', name='male', id = 'b0')
-                |  Male
-                
-                input(type = 'button', name = 'submit', id = 'submit', value = 'Compare to Average', onClick = "displayInfo()")
-        div.chart(id = 'chart', name = 'chart', style='height: 50%; width: 50%')
-            canvas.myChart(id = "myChart", name = "myChart")
-            
-div(style='height: 100px;')
-  | asdfashdjkfhaskjdf
+            select#classList

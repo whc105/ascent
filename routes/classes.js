@@ -6,6 +6,7 @@ const keys = require('../config/config.js').keys;
 const url = keys.mongoURI;
 
 var db;
+const getClassData = require('../libraries/getClassData.js');
 var addAssignment = require('../serverJS/addAssignment.js');
 
 MongoClient.connect(url, function(err, database) {
@@ -38,7 +39,7 @@ router.get('/:className', function(req, res, next) {
     var classes = db.collection('classes');
     var assignments = db.collection('assignments');
     var students = db.collection('students');
-    getClassID(className, classes)
+    getClassData.getClassID(className, db)
     .then(function(classID) {
         if (!(classID instanceof Error)) {
             classes.find({'id':classID}).toArray(function(err, classesResult) {
@@ -75,8 +76,7 @@ router.get('/:className/newAssignment', function(req, res, next) {
 router.post('/:className/newAssignment', function(req, res) {
     var newAssignments = req.body;
     var className = req.params.className;
-    var classes = db.collection('classes');
-    getClassID(className, classes)
+    getClassData.getClassID(className, db)
     .then(function(classID) {
         addAssignment(db, res, newAssignments, className, classID);
     });
@@ -105,8 +105,7 @@ router.get('/:className/addStudents', function(req, res) {
 //Adds all the students from the addStudents page into the class
 router.post('/:className/addStudents', function(req, res) {
     var className = req.params.className;
-    var classesCollection = db.collection('classes');
-    getClassID(className, classesCollection)
+    getClassData.getClassID(className, db)
     .then(function(classID) {
         addStudentsToClass(db, res, classID, req.body);
         res.redirect('/classes/' + className);
@@ -137,9 +136,8 @@ function findStudentAssessments(db, res, assignmentName, className) {
     //Finds the all the students with the given assignment
     var assignmentCollection = db.collection('assignments');
     var students = db.collection('students');
-    var classes = db.collection('classes');
     var rubrics = db.collection('rubrics');
-    getClassID(className, classes)
+    getClassData.getClassID(className, db)
     .then(function(classID) {
         students.find({'currentClasses':classID}, {'_id':0}).toArray(function(err, studentResult) {
             if (err || studentResult.length == 0) {
@@ -203,7 +201,7 @@ function removeStudentsFromClass(db, res, className, inputData) {
     var students = db.collection('students');
     var classes = db.collection('classes');
     var studentIDs = Object.keys(inputData);
-    getClassID(className, classes)
+    getClassData.getClassID(className, db)
     .then(function(classID) {
         for (var count = 0; count < studentIDs.length; count++) {
             students.update({'id':studentIDs[count]}, {$pull:{'currentClasses':classID}}, function(err) {
@@ -223,8 +221,7 @@ function removeStudentsFromClass(db, res, className, inputData) {
 //Get all the students that are not in the class
 function getAllNotInClassStudents(db, res, className) {
     var students = db.collection('students');
-    var classes = db.collection('classes');
-    getClassID(className, classes)
+    getClassData.getClassID(className, db)
     .then(function(classID) {
         students.find({'currentClasses':{$ne:classID}}).toArray(function(err, result) {
             if (err) {
@@ -240,8 +237,7 @@ function getAllNotInClassStudents(db, res, className) {
 //Get all the students that are not in the class
 function getAllInClassStudents(db, res, className) {
     var students = db.collection('students');
-    var classes = db.collection('classes');
-    getClassID(className, classes)
+    getClassData.getClassID(className, db)
     .then(function(classID) {
         students.find({'currentClasses':{$eq:classID}}).toArray(function(err, result) {
             if (err) {
@@ -258,7 +254,7 @@ function getAllInClassStudents(db, res, className) {
 function removeAssignment (db, res, assignmentName, className) {
     var assignmentCollection = db.collection('assignments');
     var classes = db.collection('classes');
-    getClassID(className, classes)
+    getClassData.getClassID(className, db)
     .then(function(classID) {
         getAssignmentID(assignmentName, classID, assignmentCollection)
         .then(function(assignmentID) {
@@ -275,24 +271,6 @@ function removeAssignment (db, res, assignmentName, className) {
         });
     });
 }
-
-//Get classID
-var getClassID = function (className, classesCollection) {
-    return new Promise(function(resolve) {
-        classesCollection.find({'name':className}).toArray(function(err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                if (result.length == 1) {
-                    var classID = result[0].id;
-                    resolve(classID);
-                } else {
-                    resolve(new Error());
-                }
-            }
-        });
-    });
-};
 
 var getAssignmentID = function (assignmentName, classID, assignmentCollection) {
     var assignmentID;

@@ -105,9 +105,8 @@ function basicAnalysis() {
     
     $('.studentCount').text('There are ' + studentsData.length + ' students');
     $('.classCount').text('There are ' + classesData.length + ' classes');
-    $('.averageGPA').text("The school's average is " + avgGPA);
-    $('.maleCount').text('Number of Male students: ' + mCount);
-    $('.femaleCount').text('Number of Female students: ' + fCount);
+    $('.averageGPA').text("The school's average is " + avgGPA.toFixed(3));
+    $('.genderCount').text('Male students: ' + mCount + ' Female students: ' + fCount);
     $('.spedCount').text('Number of SPED students: ' + SPED);
     $('.ellCount').text('Number of ELL students: ' + ELL);
     
@@ -126,6 +125,13 @@ function basicAnalysis() {
                     'rgba(4, 181, 205, 1)',
                     'rgba(255, 52, 184, 1)'],
             }]
+        },
+        options: {
+            legend: {
+                labels: {
+                    boxWidth: 15
+                }
+            }
         }
     });
     
@@ -145,6 +151,13 @@ function basicAnalysis() {
                     'rgba(26, 244, 135, 1)',
                     'rgba(11, 171, 234, 1)']
             }]
+        },
+        options: {
+            legend: {
+                labels: {
+                    boxWidth: 15
+                }
+            }
         }
     });
     
@@ -164,6 +177,13 @@ function basicAnalysis() {
                     'rgba(234, 11, 85, 1)',
                     'rgba(199, 199, 245, 1)']
             }]
+        },
+        options: {
+            legend: {
+                labels: {
+                    boxWidth: 15
+                }
+            }
         }
     });
     
@@ -187,6 +207,17 @@ function basicAnalysis() {
                     'rgba(255, 207, 84, 1)',
                     'rgba(84, 132, 255, 1)']
             }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Grade Levels'
+            },
+            legend: {
+                labels: {
+                    boxWidth: 15
+                }
+            }
         }
     });
     
@@ -212,6 +243,17 @@ function basicAnalysis() {
                     'rgba(84, 132, 255, 1)',
                     'rgba(0, 0, 0, 1)']
             }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Reports'
+            },
+            legend: {
+                labels: {
+                    boxWidth: 15
+                }
+            }
         }
     });
     
@@ -238,6 +280,17 @@ function basicAnalysis() {
                     'rgba(84, 132, 255, 1)',
                     'rgba(0, 0, 0, 1)']
             }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Students Performance'
+            },
+            legend: {
+                labels: {
+                    boxWidth: 15
+                }
+            }
         }
     });
     calcStandardDeviation(studentsData, avgGPA);
@@ -261,7 +314,7 @@ function calcStandardDeviation(studentList, averageGPA) {
     ksiTotal = ksiTotal / ksi.length;
     
     var standardDeviation = Math.pow(ksiTotal, .5); //Calculates Standard Deviation
-    $('.standardDeviation').text('Standard Deviation ' + standardDeviation);
+    $('.standardDeviation').text('Standard Deviation ' + standardDeviation.toFixed(3));
     
     studentGPAs = studentGPAs.sort(sortNumber);
     
@@ -334,7 +387,7 @@ function aboveXSliderChart() {
     var val = 65;
     var aboveX = $('#aboveXChart');
     var aboveXChart = new Chart(aboveX,{
-        responsive:true,
+        responsive: true,
         type: 'pie',
         data : {
             labels: ['More than or equal to ' + val + '%', 'Less ' + val + '%'],
@@ -347,6 +400,13 @@ function aboveXSliderChart() {
                     'rgba(4, 181, 205, 1)',
                     'rgba(255, 52, 184, 1)'],
             }]
+        },
+        options: {
+            legend: {
+                labels: {
+                    boxWidth: 15
+                }
+            }
         }
     });
     //Slider mechanism

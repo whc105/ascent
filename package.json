@@ -44,7 +44,7 @@
     "slideout": "^1.0.1"
   },
   "main": "app.js",
-  "author": "Mirjan Neza, Wei Huan Chen, Alexander Andrews",
+  "author": "Mirjan Neza, Wei Huan Chen",
   "license": "ISC",
   "description": "Student Analysis Service",
   "devDependencies": {

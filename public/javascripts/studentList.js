@@ -275,7 +275,7 @@ function selectAllToRemove() {
 }
 
 $(function() {
-    $('.student_list_item').click(function() { //Makes student boxes clickable
+    $('.card').click(function() { //Makes student boxes clickable
         window.location = $(this).children('a').attr('href');
     });
     $('#open').click(function() {

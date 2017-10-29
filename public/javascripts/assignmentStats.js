@@ -58,24 +58,19 @@ function createChart() {
         type: 'bar',
         data: {
             labels: null,
-            datasets: [{
-                data: null,
-                backgroundColor: [
-                    'rgba(4, 181, 205, 1)',
-                    'rgba(216, 95, 95, 1)'],
-                label: 'Averages per Topic'
-            }]
+            datasets: []
         },
         options: {
+            title: {
+                display: true,
+                text: 'Topic Averages'
+            },
             scales: {
                 yAxes: [{
                     ticks: {
                         beginAtZero:true
                     }
                 }]
-            },
-            legend: {
-                display: true
             }
         }
     });
@@ -132,18 +127,30 @@ function createChart() {
         type: 'line',
         data: {
             datasets:[{
-                label: 'Students Average',
+                label: 'Assignment Average',
+                radius: 0,
                 data: null,
-                backgroundColor: 'rgba(247, 186, 2, 0.2)',
-                borderColor: 'rgba(247, 186, 2, 1)'
+                backgroundColor: 'rgba(247, 143, 69, 0.2)',
+                borderColor: 'rgba(247, 143, 69, 1)'
             }, {
-                label: 'Assignment Score',
+                label: 'Student Score',
                 data: null,
                 type: 'bubble',
                 backgroundColor: 'rgba(2, 178, 247, 0.2)',
                 borderColor: 'rgba(2, 178, 247, 1)'
             }],
             labels: null,
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Student Scores VS Assignment Averages'
+            },
+            legend: {
+                labels: {
+                    boxWidth: 15
+                }
+            }
         }
     });
 }
@@ -192,6 +199,7 @@ function changeChart() { //Updates the chart with new assignment
         overallAssignmentAverage(assignmentStudents);
         getAverage(assignmentStats);
         calculateGraded(assignmentStats, topicsList.length);
+        $('#perf-chart').show();
     }
 }
 
@@ -298,7 +306,17 @@ function getAverage(studentData){
     }
     
     averageBarTopic.data.labels = topics;
-    averageBarTopic.data.datasets[0].data = score_point_avg;
+    averageBarTopic.data.datasets = [];
+    for (var count = 0; count < topics.length; count++) { //Adds to the average topic bar chart and generates a random RGBA color
+        var generateRGBA = 'rgba(';
+        for (var colorGenerator = 0; colorGenerator < 3; colorGenerator++) {
+            generateRGBA += (Math.random()*256).toFixed(0);
+            generateRGBA += ','
+        }
+        generateRGBA += '1)';
+        averageBarTopic.data.datasets.push({label: topics[count], data: [score_point_avg[count]], backgroundColor:[generateRGBA]});
+    }
+    
     averageBarTopic.update();
     $('#topic-chart').show();
     
@@ -388,5 +406,4 @@ function drawStudentPerformance() {
     
     studentPerformanceChart.data.datasets[1].data = score;
     studentPerformanceChart.update();
-    $('#perf-chart').show();
 }
