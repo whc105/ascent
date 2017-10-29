@@ -18,6 +18,14 @@ module.exports = app => {
         });
     });
     
+    app.get('/api/classes/i/classIdentify', (req, res) => { //Finds all classes with the given ID
+        const db = req.app.locals.db;
+        db.collection('classes').find({},{'_id':0, 'id':1, 'name':1}).toArray( (err, docs) => {
+            if (err) console.log(err.stack);
+            res.send(docs);
+        });
+    })
+    
     app.get('/api/classes/getAssignmentNames/:name/', (req, res) => { //Finds all assignment names in classes
         const db = req.app.locals.db;
         const name = req.params.name;

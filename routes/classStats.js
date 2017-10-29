@@ -6,7 +6,6 @@ const keys = require('../config/config.js').keys;
 const url = keys.mongoURI;
 
 router.get('/', function(req, res, next) {
-    console.log("Render classStats");
     res.render('classStats');
 });
 

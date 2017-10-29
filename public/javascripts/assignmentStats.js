@@ -306,6 +306,7 @@ function getAverage(studentData){
     }
     
     averageBarTopic.data.labels = topics;
+    averageBarTopic.data.datasets = [];
     for (var count = 0; count < topics.length; count++) { //Adds to the average topic bar chart and generates a random RGBA color
         var generateRGBA = 'rgba(';
         for (var colorGenerator = 0; colorGenerator < 3; colorGenerator++) {
