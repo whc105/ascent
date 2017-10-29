@@ -192,6 +192,7 @@ function changeChart() { //Updates the chart with new assignment
         overallAssignmentAverage(assignmentStudents);
         getAverage(assignmentStats);
         calculateGraded(assignmentStats, topicsList.length);
+        $('#perf-chart').show();
     }
 }
 
@@ -388,5 +389,4 @@ function drawStudentPerformance() {
     
     studentPerformanceChart.data.datasets[1].data = score;
     studentPerformanceChart.update();
-    $('#perf-chart').show();
 }

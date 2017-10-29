@@ -6,15 +6,11 @@ block content
     div(align='center')
         br
         h2 Assignment Statistics 
-        br
         select#assignmentList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='changeChart()')
-        br
-        br
         div.general-stats
             h5#assignment-avg
-        br
-        div.row1
-            div#topic-chart.col-md-6
+        .row
+            div#topic-chart.chart-container(align='left')
                 canvas#bar-topic
                 div.filter-tool(id='side-filter', align='left')
                     //Flip switch feature
@@ -25,16 +21,13 @@ block content
                         ul.dropdown-menu(aria-labelledby='dropdownMenuGender')
                             li
                                 div.input-group
-                                    &nbsp
-                                    |Show M 
+                                    |&nbsp Show M 
                                     input(type='checkbox', name='filter-male', id='filter-male')
                                 br
                             li
                                 div.input-group
-                                    &nbsp
-                                    |Show F 
+                                    |&nbsp Show F 
                                     input(type='checkbox', name='filter-fmale', id='filter-fmale')
-                    br
                     div.dropdown
                         button.bttn-minimal.bttn-xs.bttn-primary.dropdown-toggle(id='dropdownMenuSPED', type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
                             |Filter By SPED 
@@ -42,10 +35,8 @@ block content
                         ul.dropdown-menu(aria-labelledby='dropdownMenuSPED')
                             li
                                 div.input-group
-                                    &nbsp
-                                    |Show SPED 
+                                    |&nbsp Show SPED 
                                     input(type='checkbox', name='filter-sped', id='filter-sped')
-                    br
                     div.dropdown
                         button.bttn-minimal.bttn-xs.bttn-primary.dropdown-toggle(id='dropdownMenuELL', type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
                             |Filter By ELL 
@@ -53,19 +44,18 @@ block content
                         ul.dropdown-menu(aria-labelledby='dropdownMenuELL')
                             li
                                 div.input-group
-                                    &nbsp
-                                    |Show ELL 
+                                    |&nbsp Show ELL 
                                     input(type='checkbox', name='filter-ell', id='filter-ell')
                     br
                     button.bttn-unite.bttn-xs(id='filter-button', onClick = 'filterAverages()')
-                        i.fa.fa-filter(aria-hidden='true')  Save Filter
-            div#graded-students.col-md-6
+                        i.fa.fa-filter(aria-hidden='true') Save Filter
+            div#graded-students.chart-container
                 canvas#graded-chart
-            select#studentList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='drawStudentPerformance()')
-            div#perf-chart
+            div#perf-chart.chart-container
                 canvas#student-chart
+                select#studentList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='drawStudentPerformance()')
         hr
-        div.row2
-            div#scoring-avg-chart
+        .row
+            div#scoring-avg-chart.chart-container
                 canvas#avg-chart
         

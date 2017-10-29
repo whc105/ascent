@@ -177,20 +177,23 @@ block content
                 -studentGPA = students.gpa
                 -width = studentGPA + '%'
                 -gender = students.gender
-                .student_list_item(id = '#{studentID}')
+                .card
                     a(href='#{dynamicID}', name='id')
-                    p Student ID: #{students.id}
-                    p#name Name: #{students.fName} #{students.lName} 
-                    p#grade Grade Level: #{students.grade}
-                    p#gender Gender: #{gender}
-                    div#studentDiv(class = students.id)
-                        .progress
-                            .progress-bar(role='progressbar', aria-valuenow= studentGPA, aria-valuemin='0', aria-valuemax='100', style='width: ' + width + ';', class = students.id)
-                                |#{width}
-                            script.
-                                gpa='#{studentGPA}';
-                                studentID = '#{studentID}'
-                                changeColors(gpa, studentID);
+                    .content
+                        .row(align='center')
+                            p#name Name: #{students.fName} #{students.lName} 
+                            p#grade Grade Level: #{students.grade}
+                            p#gender Gender: #{gender}
+                            p Student ID: #{students.id}
+                        .footer
+                            div#studentDiv(class = students.id)
+                                .progress
+                                    .progress-bar(role='progressbar', aria-valuenow= studentGPA, aria-valuemin='0', aria-valuemax='100', style='width: ' + width + ';', class = students.id)
+                                        |#{width}
+                                    script.
+                                        gpa='#{studentGPA}';
+                                        studentID = '#{studentID}'
+                                        changeColors(gpa, studentID);
             br
             br
             form(name='uploadFile', method='post', action='/studentList', enctype='multipart/form-data') Mass Upload Student Data in CSV files

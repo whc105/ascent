@@ -4,8 +4,9 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const keys = require('../config/config.js').keys;
 const url = keys.mongoURI;
-const getClassData = require('../libraries/getClassData.js');
+
 var db;
+const getClassData = require('../libraries/getClassData.js');
 
 MongoClient.connect(url, function(err, database) {
     if (err) {

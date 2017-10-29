@@ -1,26 +1,28 @@
 .heading {
     display:inline;
 }
-
+.card {
+    border-style: solid;
+    border-color: #dfdedd;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    color: #10100f;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
 .col-lg-5 {
     display: inline-block;
     float: right;
 }
 
-.student_list_item {
+.card {
     display: inline-block;
     vertical-align: top;
-    border-style: solid;
-    border-color: black;
     width: 250px;
     height: 60%;
-    padding: 8px;
+    padding: 4px;
     margin: 8px;
-}
-
-.class-box:hover {
-    border-style: solid;
-    border-color: #42cef4;
 }
 
 #list {
@@ -28,13 +30,12 @@
 }
 
 #studentDiv {
-    position: relative;
+    vertical-align: top;
     margin: auto;
     width: 95%;
-    top: 5px;
 }
 
-.student_list_item:hover {
+.card:hover {
     border-style: solid;
     border-color: #42cef4;
     cursor: pointer;

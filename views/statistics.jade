@@ -13,30 +13,31 @@ block content
         h5.standardDeviation
         canvas#gpaDeviation
     hr
-    div.row
-        div#genders.col-md-4
-            h5.maleCount
-            h5.femaleCount
-            canvas#genderChart
-        div#sped.col-md-4
-            h5.spedCount
-            canvas#spedChart
-        div#ell.col-md-4
-            h5.ellCount
-            canvas#ellChart
-    hr
-    div.row1
-        div#grade.col-md-4
-            h5 Grade Levels
-            canvas#gradeChart
-        div#reports.col-md-4
-            h5 Reports
-            canvas#reportChart
-        div#passrate.col-md-4
-            h5 Students Performance
-            canvas#passChart
-    hr
-    div#slider
-    div#slider-GPA.col-md-4
-        input#amount(type='text', readonly='', style='border:0; color:#3a3734; font-weight:bold;')
-        canvas#aboveXChart
+    .container-fluid
+        .row
+            div#genders.chart-container
+                h5.genderCount
+                canvas#genderChart
+            div#sped.chart-container
+                h5.spedCount
+                canvas#spedChart
+            div#ell.chart-container
+                h5.ellCount
+                canvas#ellChart
+        hr
+        .row
+            div#grade.chart-container
+                h5 Grade Levels
+                canvas#gradeChart
+            div#reports.chart-container
+                h5 Reports
+                canvas#reportChart
+            div#passrate.chart-container
+                h5 Students Performance
+                canvas#passChart
+        hr
+        .row
+            div#slider(aligh='left')
+            input#amount(type='text', readonly='', style='border:0; color:#3a3734; font-weight:bold;')
+            div#slider-gpa.chart-container
+                canvas#aboveXChart
