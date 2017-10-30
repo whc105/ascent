@@ -9,7 +9,7 @@ module.exports = app => {
         });
     });
     
-    app.get('/api/students/:id', (req, res) => {
+    app.get('/api/students/s/:id', (req, res) => {
         const db = req.app.locals.db;
         const id = req.params.id;
         db.collection('students').find({ id }).toArray( (err, docs) => {

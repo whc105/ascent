@@ -42,6 +42,7 @@ function changeColors(gpa, studentID) {
 
 //Key up search
 function search() {
+    console.log(studentElements)
     $('#searchInput').on('keyup', function() {
         var query = $('#searchInput').val().toLowerCase().trim();
         //Finds all the non-matching students
@@ -60,7 +61,7 @@ function search() {
                 elem.classList.remove('hidden');
             }
         });
-        
+        console.log(studentElements)
         //Shows or hides 'student not found'
         if (studentElements.length == hiddenStudentIDs.length) {
             $('#notFoundResult').show();

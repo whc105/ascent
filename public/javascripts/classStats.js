@@ -3,7 +3,7 @@
 
 $(function() {
     $.ajax({
-        url: '/api/classes/i/classIdentify',
+        url: '/api/classes/identifySearch',
         method: 'GET',
         success: function(response) {
             var classIdentifiers = response;
