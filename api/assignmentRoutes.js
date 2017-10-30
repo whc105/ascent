@@ -9,7 +9,7 @@ module.exports = app => {
         });
     });
     
-    app.get('/api/assignments/:id', (req, res) => {
+    app.get('/api/assignments/s/:id', (req, res) => {
         const db = req.app.locals.db;
         const id = parseInt(req.params.id);
         db.collection('assignments').find({ id }).toArray( (err, docs) => {
