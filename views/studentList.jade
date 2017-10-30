@@ -177,7 +177,7 @@ block content
                 -studentGPA = students.gpa
                 -width = studentGPA + '%'
                 -gender = students.gender
-                .card
+                .card.student_list_item(id = '#{studentID}')
                     a(href='#{dynamicID}', name='id')
                     .content
                         .row(align='center')
