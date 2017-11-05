@@ -58,8 +58,6 @@ router.post('/rubricCreator', function(req, res){
 router.post('/gradeStudent', function(req, res) {
     var assignmentCollection = db.collection('assignments');
     
-    console.log(req.body);
-    
     var assignmentName = req.body.assignmentName;
     var studentID = req.body.id;
     var grades = req.body.grades;
@@ -83,7 +81,30 @@ router.post('/gradeStudent', function(req, res) {
             res.send({resultString:'Grade is saved'});
         }
     });
+    
+    assignmentCollection.find({'assignmentName':assignmentName}).toArray(function(err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            var assignmentData = result[0];
+            var gradedStudents = assignmentData.students.filter(function(students) {
+                if (students.grades >= 0) {
+                    return students;
+                }
+            });
+            var avg = 0;
+            for (var count = 0; count < gradedStudents.length; count++) {
+                avg = avg + gradedStudents[count].grades;
+            }
+            avg = avg / gradedStudents.length;
+            assignmentCollection.update({'assignmentName':assignmentName}, {$set:{avg:avg}}, function(err) {
+                if (err) console.log(err);
+            });
+        }
+    });
 });
+
+
 
 //Gets students grades
 router.post('/getGrades', function(req, res) {

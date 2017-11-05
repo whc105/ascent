@@ -71,7 +71,7 @@ var addAssignmentGrading = function (db, res, assignment, classID, studentGrade)
                 assignmentCollection.insert({
                     'assignmentName' : assignment.AssignmentName, 'id': assignmentID,
                     'rubricID': rubricID, 'classID': classID,
-                    'date': assignment.date, 'students': studentGrade
+                    'date': assignment.date, 'students': studentGrade, 'avg':null
                 },{ordered: false}, function(err, result) {
                     if (err) {
                         console.log(err);
