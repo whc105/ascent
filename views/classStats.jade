@@ -2,9 +2,18 @@ extends layout
 block content
     script(src='/javascripts/classStats.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js')
+    link(rel='stylesheet', href='/stylesheets/classStats.css')
     div.classSelect
         div(align='center')
-            h2 Class Statistics
+            h2.header-title#class-name Class
+            h2.header-title &nbspStatistics
             br
-            | Select 
-            select#classList
+            |Select 
+            select#class-list
+    div.general-stats
+        .row
+            .col-md-5#general.chart-container
+                canvas#general-chart
+            .col-md-5
+                table.table.table-hover
+                
