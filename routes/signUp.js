@@ -16,7 +16,6 @@ MongoClient.connect(url, function(err, database) {
     }
 });
 //Rendering the page
-
 router.get('/', function(req, res, next) {
     res.render('signUp');
 });
