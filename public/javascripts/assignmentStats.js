@@ -15,6 +15,7 @@ $(function() {
     $('#perf-chart').hide();
     $('#avg-chart').hide();
     $('#topicAvg-chart').hide();
+    $('#topicList').hide();
     getStudentProfile();
     getAssignmentData();
 });
@@ -238,12 +239,14 @@ function changeChart() { //Updates the chart with new assignment
         for (var topics = 0; topics < assignmentStudents[0].scoring.length; topics++) {
             topicsList.push(assignmentStudents[0].scoring[topics].topic);
         }
+        getTopics(topicsList);
         overallAssignmentAverage(assignmentStudents);
         getAverage(assignmentStats);
         calculateGraded(assignmentStats, topicsList.length);
         $('#perf-chart').show();
         $('#avg-chart').show();
         $('#topicAvg-chart').show();
+        $('#topicList').show();
     }
 }
 
@@ -452,6 +455,14 @@ function drawStudentPerformance() {
     studentPerformanceChart.update();
 }
 
-function getTopicAverages(){
+function getTopics(topicsList){ //function used to update the topic select for the topic graph
+    var topicArray = topicsList;
+    //go through the topic array and update the select
+    for(var count = 0;count < topicArray.length; count++){
+        $('#topicList').append($('<option>', {
+        value: topicArray[count],
+        text : topicArray[count]
+        }));
+    }
     console.log('this is in development');
 }

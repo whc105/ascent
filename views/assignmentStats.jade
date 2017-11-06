@@ -58,8 +58,6 @@ block content
         .row
             div#scoring-avg-chart.chart-container(align='left')
                 canvas#avg-chart
-            br
-            br
-            div#topic-avg-chart.chart-container(align='right')
-                select#topicList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='getTopicAverages()')
+            div#topic-avg-chart.chart-container(align='middle')
+                select#topicList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='getTopics()')
                 canvas#topicAvg-chart
