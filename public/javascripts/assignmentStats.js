@@ -6,13 +6,16 @@ var averageBarTopic;
 var gradedStudentsChart;
 var studentPerformanceChart;
 var studentAvgChart;
+var topicAvgChart;
 
 var assignments = [];
 $(function() {
     $('#topic-chart').hide();
     $('#graded-students').hide();
     $('#perf-chart').hide();
-    $('#scoring-avg-chart').hide();
+    $('#avg-chart').hide();
+    $('#topicAvg-chart').hide();
+    $('#topicList').hide();
     getStudentProfile();
     getAssignmentData();
 });
@@ -23,6 +26,8 @@ function getStudentProfile() { //Gets student data
         method: 'GET',
         success: function(response) {
             studentProfile = response;
+            console.log("Here is the student profile data");
+            console.log(studentProfile);
         }
     });
 }
@@ -33,6 +38,8 @@ function getAssignmentData() {
         method: 'GET',
         success: function(response) {
             assignments = response;
+            console.log("This is the assignment data");
+            console.log(assignments);
             $('#assignmentList').append($('<option>', {
                 value: 'default',
                 text : 'Select an assignment'
@@ -46,6 +53,7 @@ function getAssignmentData() {
                 }));
             }
             createChart();
+            
         }
     });
 }
@@ -144,7 +152,7 @@ function createChart() {
         options: {
             title: {
                 display: true,
-                text: 'Student Scores VS Assignment Averages'
+                text: 'Student Score VS Assignment Average'
             },
             legend: {
                 labels: {
@@ -153,7 +161,42 @@ function createChart() {
             }
         }
     });
+    
+    var topicAvg = $('#topicAvg-chart');
+    topicAvgChart = new Chart(topicAvg, {
+        type: 'line',
+        data: {
+            datasets:[{
+                label: 'Topic Average',
+                radius: 0,
+                data: null,
+                backgroundColor: 'rgba(247, 143, 69, 0.2)',
+                borderColor: 'rgba(247, 143, 69, 1)'
+            }, {
+                label: 'Student Score',
+                data: null,
+                type: 'bubble',
+                backgroundColor: 'rgba(2, 178, 247, 0.2)',
+                borderColor: 'rgba(2, 178, 247, 1)'
+            }],
+            labels: null,
+        },
+        options: {
+            responsive:true,
+            title: {
+                display: true,
+                text: 'Student Score VS Topic Average'
+            },
+            legend: {
+                labels: {
+                    boxWidth: 15
+                }
+            }
+        }
+    });
+    
 }
+
 
 function changeChart() { //Updates the chart with new assignment
     var searchAssignment = $('#assignmentList').val();
@@ -196,10 +239,14 @@ function changeChart() { //Updates the chart with new assignment
         for (var topics = 0; topics < assignmentStudents[0].scoring.length; topics++) {
             topicsList.push(assignmentStudents[0].scoring[topics].topic);
         }
+        getTopics(topicsList);
         overallAssignmentAverage(assignmentStudents);
         getAverage(assignmentStats);
         calculateGraded(assignmentStats, topicsList.length);
         $('#perf-chart').show();
+        $('#avg-chart').show();
+        $('#topicAvg-chart').show();
+        $('#topicList').show();
     }
 }
 
@@ -354,7 +401,7 @@ function overallAssignmentAverage(studentData) {
     studentAvgChart.data.labels = avgLabels;
     studentAvgChart.data.datasets[1].data = studentPlots;
     studentAvgChart.update();
-    $('#scoring-avg-chart').show();
+    $('#student-avg-chart').show();
 }
 
 function calculateGraded(studentData, topicsList) {
@@ -406,4 +453,16 @@ function drawStudentPerformance() {
     
     studentPerformanceChart.data.datasets[1].data = score;
     studentPerformanceChart.update();
+}
+
+function getTopics(topicsList){ //function used to update the topic select for the topic graph
+    var topicArray = topicsList;
+    //go through the topic array and update the select
+    for(var count = 0;count < topicArray.length; count++){
+        $('#topicList').append($('<option>', {
+        value: topicArray[count],
+        text : topicArray[count]
+        }));
+    }
+    console.log('this is in development');
 }

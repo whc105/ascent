@@ -56,6 +56,8 @@ block content
                 select#studentList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='drawStudentPerformance()')
         hr
         .row
-            div#scoring-avg-chart.chart-container
+            div#scoring-avg-chart.chart-container(align='left')
                 canvas#avg-chart
-        
+            div#topic-avg-chart.chart-container(align='middle')
+                select#topicList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='getTopics()')
+                canvas#topicAvg-chart

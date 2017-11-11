@@ -34,7 +34,7 @@ block content
             br
             ul(id='studentUL')
                 each student, i in studentList
-                    form.rubric_form_grade(id='#{i}', name='#{student.fName}'+'#{student.lName}')
+                    form.rubric_form_grade(id='#{i}ID', name='#{student.fName}'+'#{student.lName}')
                         li(id= '#{student.id}', class= 'list') #{student.fName} #{student.lName}
                             button.btn.btn-warning(id = 'visibilityToggle', type= 'button', class = 'hiding')
                                 i.fa.fa-eye-slash.visibility(aria-hidden='true')
@@ -51,5 +51,5 @@ block content
                 a.btn-floating.btn-large.red(href='#top-section')
                     i.fa.fa-arrow-up
                     |  Back to the top
-            script.
-                displayPerStudent(!{JSON.stringify(studentList)}.length);
+    script.
+        displayPerStudent(!{JSON.stringify(studentList)}.length);

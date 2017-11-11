@@ -25,7 +25,7 @@ function selectOnClick() {
 function displayPerStudent(studentCount) {
     var template = $('#rubric_grading');
     for (var count = 0; count < studentCount; count++) {
-        template.clone().appendTo($(`#${count} .list`));
+        template.clone().appendTo($(`#${count}ID .list`));
     }
 }
 

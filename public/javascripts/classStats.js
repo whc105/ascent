@@ -1,13 +1,15 @@
 /*global $*/
 /*global Chart*/
 
-var generalStatistics;
+var generalStatisticsChart;
+var assignmentAveragesChart;
+var assignmentGrowthChart;
 
 $(function() {
     initializeCharts();
     var classData;
     var assignmentData;
-    $.ajax({
+    $.ajax({ //Pulls the class data from the classes collectiion
         url: '/api/classes',
         method: 'GET',
         success: function(response) {
@@ -39,29 +41,50 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
     classData = classData.filter(function(classObject) { //Filters the array so it's only the given classID
         return classObject.id == classID;
     });
-    classData = classData[0];
+    classData = classData[0]; //General Analysis regarding student, teacher, and assignment count
     var studentCount = classData.students.length;
     var assignmentCount = classData.assignments.length;
     var teacherCount = classData.teacher.length;
     var counters = [studentCount, assignmentCount, teacherCount];
-    generalStatistics.data.datasets[0].data = counters;
-    generalStatistics.update();
+    generalStatisticsChart.data.datasets[0].data = counters;
+    generalStatisticsChart.update();
     
+    $('#ratio').text(`${studentCount/teacherCount} Students Per Teacher`); //Calculates student to teacher ratio
+    
+    //Filters all the assignment data
     assignmentData = assignmentData.filter(function(assignment) {
         return assignment.classID == classID;
     });
-    console.log(assignmentData);
-}
-
-function changeHeader() {
-    var className = $(`#class-list option:selected`).html();
-    var classID = $(`#class-list`).val();
-    $('#class-name').text(`${className}`);
-    return classID;
+    
+    
+    //Pushes all the assignment names to the label
+    clearFields(assignmentAveragesChart);
+    assignmentData.forEach(function(assignment) {
+        assignmentAveragesChart.data.labels.push(assignment.assignmentName);
+        if ('avg' in assignment && assignment.avg != null) {
+            assignmentAveragesChart.data.datasets[0].data.push((assignment.avg * 100).toFixed(3));
+        } else {
+            assignmentAveragesChart.data.datasets[0].data.push(0);
+        }
+    });
+    assignmentAveragesChart.update();
+    
+    assignmentData = sortDate(assignmentData);
+    
+    //Calculates data for assignment growth chart
+    clearFields(assignmentGrowthChart);
+    assignmentData.forEach(function(assignment) {
+        assignmentGrowthChart.data.labels.push(`${assignment.date} ${assignment.assignmentName}`);
+        assignmentGrowthChart.data.datasets[0].data.push((assignment.avg * 100).toFixed(3));
+    });
+    assignmentGrowthChart.update();
+    
+    
+    //console.log(assignmentData);
 }
 
 function initializeCharts() { //Initializes Charts
-    generalStatistics = new Chart($('#general-chart'), {
+    generalStatisticsChart = new Chart($('#general-chart'), {
         responsive: true,
         type: 'horizontalBar',
         data: {
@@ -81,4 +104,84 @@ function initializeCharts() { //Initializes Charts
             }
         }
     });
+    assignmentAveragesChart = new Chart($('#assignment-chart'), {
+        responsive: true,
+        type: 'horizontalBar',
+        data: {
+            labels: [],
+            datasets: [{
+                data: [],
+                backgroundColor: []
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Assignment Averages'
+            },
+            legend: {
+                display: false
+            }
+        }
+    });
+    assignmentGrowthChart = new Chart($('#assignment-growth-chart'), {
+        responsive: true,
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                data: [],
+                borderColor: '#3e95cd',
+                pointBackgroundColor: 'white',
+                backgroundColor: ['rgba(40, 165, 255, 0.5)']
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Assignment Averages Change Over Time'
+            },
+            legend: {
+                display: false
+            }
+        },
+    });
+    
+}
+
+function changeHeader() { //Changes the header to the right class
+    var className = $(`#class-list option:selected`).html();
+    var classID = $(`#class-list`).val();
+    $('#class-name').text(`${className}`);
+    return classID;
+}
+
+function clearFields(chart) { //Clears the chart
+    chart.data.labels = [];
+    chart.data.datasets[0].data = [];
+}
+
+function sortDate(assignmentData) {
+    assignmentData.sort(function(a, b) {
+        a = new Date(a.date);
+        b = new Date(b.date);
+        return a - b;
+    });
+    return assignmentData;
 }
