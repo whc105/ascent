@@ -1,0 +1,41 @@
+#class-name {
+    text-decoration: underline;
+}
+
+.header-title {
+    display: inline-block;
+}
+
+#select {
+    display: block;
+}
+
+#class-list {
+    border-color: black;
+    background-color: black;
+    color: white;
+    border: 2px solid;
+    border-radius: 25px;
+}
+
+#student-faculty-ratio {
+    float: right;
+}
+
+#general {
+    display: inline-block;
+    height: 30vh;
+    width: 30vw;
+}
+
+#assignment-averages {
+    display: inline-block;
+    height: 30vh;
+    width: 30vw;
+}
+
+#assignment-growth {
+    display: inline-block;
+    height: 40vh;
+    width: 80vw;
+}

@@ -18,7 +18,7 @@ module.exports = app => {
         });
     });
     
-    app.get('/api/classes/identifySearch', (req, res) => { //Finds all classes with the given ID
+    app.get('/api/classes/identifySearch', (req, res) => { //Finds all classes and returns only their ID and name
         const db = req.app.locals.db;
         db.collection('classes').find({},{'_id':0, 'id':1, 'name':1}).toArray( (err, docs) => {
             if (err) console.log(err.stack);
