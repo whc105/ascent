@@ -6,10 +6,8 @@
     display: inline-block;
 }
 
-#general {
-    display: inline-block;
-    height: 30vh;
-    width: 30vw;
+#select {
+    display: block;
 }
 
 #class-list {
@@ -20,3 +18,24 @@
     border-radius: 25px;
 }
 
+#student-faculty-ratio {
+    float: right;
+}
+
+#general {
+    display: inline-block;
+    height: 30vh;
+    width: 30vw;
+}
+
+#assignment-averages {
+    display: inline-block;
+    height: 30vh;
+    width: 30vw;
+}
+
+#assignment-growth {
+    display: inline-block;
+    height: 40vh;
+    width: 80vw;
+}
