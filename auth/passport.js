@@ -5,7 +5,7 @@ const ObjectID = require('mongodb').ObjectID;
 const LocalStrategy = require('passport-local').Strategy;
 
 const keys = require('../config/config').keys;
-
+//Login auth
 MongoClient.connect(keys.mongoURI, (err, db) => {
     if (err) console.log(err.stack);
     console.log('Successfully connected to db for auth');
