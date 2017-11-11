@@ -158,6 +158,9 @@ function createChart() {
                 labels: {
                     boxWidth: 15
                 }
+            },
+            tooltips: {
+                mode: 'index'
             }
         }
     });

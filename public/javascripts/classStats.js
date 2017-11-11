@@ -14,12 +14,12 @@ $(function() {
         method: 'GET',
         success: function(response) {
             classData = response;
-            for(var classCount = 0; classCount < classData.length; classCount++){
+            classData.forEach(function(classItem) {
                 $('#class-list').append($('<option>', {
-                    value: classData[classCount].id,
-                    text: classData[classCount].name
+                    value: classItem.id,
+                    text: classItem.name
                 }));
-            }
+            });
         }
     }).done(function() {
         $.ajax({
@@ -31,6 +31,7 @@ $(function() {
         });
     }).done(function() {
         $('#class-list').change(function() {
+            $('.charts').show();
             var classID = changeHeader();
             basicAnalysis(classID, classData, assignmentData);
         });
@@ -56,6 +57,14 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
         return assignment.classID == classID;
     });
     
+    //Clears the assignment select and pick new ones
+    $('.assignment-select option').remove();
+    assignmentData.forEach(function(assignment) {
+        $('.assignment-select').append($('<option>', {
+            value: assignment.id,
+            text: assignment.assignmentName
+        }));
+    });
     
     //Pushes all the assignment names to the label
     clearFields(assignmentAveragesChart);
@@ -74,8 +83,11 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
     //Calculates data for assignment growth chart
     clearFields(assignmentGrowthChart);
     assignmentData.forEach(function(assignment) {
-        assignmentGrowthChart.data.labels.push(`${assignment.date} ${assignment.assignmentName}`);
-        assignmentGrowthChart.data.datasets[0].data.push((assignment.avg * 100).toFixed(3));
+        if (assignment.avg != null) {
+            assignmentGrowthChart.data.labels.push(`${assignment.date} ${assignment.assignmentName}`);
+            assignmentGrowthChart.data.datasets[0].data.push((assignment.avg * 100).toFixed(3));
+        }
+        console.log(assignment)
     });
     assignmentGrowthChart.update();
     
@@ -150,6 +162,12 @@ function initializeCharts() { //Initializes Charts
                 xAxes: [{
                     gridLines: {
                         display: false
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true
                     }
                 }]
             },

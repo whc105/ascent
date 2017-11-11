@@ -13,14 +13,20 @@ block content
                 select#class-list
             div#student-faculty-ratio(align='right')
                 h5#ratio
-    div.general-stats
+    div.charts
         .row
-            .col-md-5#general.chart-container
+            .col-md-4#general.chart-container
                 canvas#general-chart
-        .row
             .col-md-5#assignment-averages.chart-container
                 canvas#assignment-chart
         .row
+            div(align='center') Assignment Comparisons
+                br
+                select.assignment-select#assignment-1
+                |&nbsp
+                select.assignment-select#assignment-2
+            .col#assignment-comparison
+                canvas#assignment-comparison-chart
+        .row
             .col-md-5#assignment-growth.chart-container
                 canvas#assignment-growth-chart
-                

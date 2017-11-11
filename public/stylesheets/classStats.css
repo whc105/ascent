@@ -1,5 +1,18 @@
+body {
+    background-color: #dcdcdd;
+}
+
+.chart-container {
+    background-color: white;
+    border-radius: 10px;
+}
+
 #class-name {
     text-decoration: underline;
+}
+
+.charts {
+    display: none;
 }
 
 .header-title {
@@ -26,12 +39,21 @@
     display: inline-block;
     height: 30vh;
     width: 30vw;
+    margin: 12px;
 }
 
 #assignment-averages {
     display: inline-block;
     height: 30vh;
     width: 30vw;
+    margin: 12px;
+}
+
+#assignment-comparison {
+    display: inline-block;
+    height: 30vh;
+    width: 30vw;
+    margin: 12px;
 }
 
 #assignment-growth {
