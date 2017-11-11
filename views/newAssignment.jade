@@ -9,7 +9,7 @@ block content
 		br
 		span Assignment Name
 		span &nbsp;
-		input#input_fname(type="text", placeholder="AssignmentName", name="AssignmentName")
+		input#input_fname(type="text", placeholder="AssignmentName", name="AssignmentName", required)
 		br
 		br
 		span Rubric Name
@@ -19,7 +19,7 @@ block content
 		br
 		span Date Given
 		span &nbsp;
-		input(name='date', type='date', min='1980-01-01', max='2500-01-01')
+		input(name='date', type='date', min='1980-01-01', max='2500-01-01', required)
 		button#submit_student(type="submit") submit
 		br
 		br
