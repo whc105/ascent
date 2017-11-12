@@ -20,13 +20,17 @@ block content
             .col-md-5#assignment-averages.chart-container
                 canvas#assignment-chart
         .row
-            div(align='center') Assignment Comparisons
+            div(align='left') Assignment Comparisons
                 br
                 select.assignment-select#assignment-1
                 |&nbsp
                 select.assignment-select#assignment-2
-            .col#assignment-comparison
+                button.bttn-minimal.bttn-xs.bttn-default#execute-analysis Run Analysis
+            .col-md-8#assignment-comparison.chart-container
                 canvas#assignment-comparison-chart
+            br
+            br
+            br
         .row
             .col-md-5#assignment-growth.chart-container
                 canvas#assignment-growth-chart

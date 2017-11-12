@@ -4,6 +4,7 @@
 var generalStatisticsChart;
 var assignmentAveragesChart;
 var assignmentGrowthChart;
+var assignmentComparisonChart;
 
 $(function() {
     initializeCharts();
@@ -35,6 +36,9 @@ $(function() {
             var classID = changeHeader();
             basicAnalysis(classID, classData, assignmentData);
         });
+        $('#execute-analysis').click(function() {
+            assignmentComparisonAnalysis($(`#class-list`).val(), classData, assignmentData);
+        });
     });
 });
 
@@ -57,7 +61,7 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
         return assignment.classID == classID;
     });
     
-    //Clears the assignment select and pick new ones
+    //Clears the assignment select and updates it with a new class assignments
     $('.assignment-select option').remove();
     assignmentData.forEach(function(assignment) {
         $('.assignment-select').append($('<option>', {
@@ -78,6 +82,7 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
     });
     assignmentAveragesChart.update();
     
+    //Sorts the assignments by date
     assignmentData = sortDate(assignmentData);
     
     //Calculates data for assignment growth chart
@@ -87,12 +92,11 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
             assignmentGrowthChart.data.labels.push(`${assignment.date} ${assignment.assignmentName}`);
             assignmentGrowthChart.data.datasets[0].data.push((assignment.avg * 100).toFixed(3));
         }
-        console.log(assignment)
+
     });
     assignmentGrowthChart.update();
     
     
-    //console.log(assignmentData);
 }
 
 function initializeCharts() { //Initializes Charts
@@ -180,6 +184,82 @@ function initializeCharts() { //Initializes Charts
             }
         },
     });
+    assignmentComparisonChart = new Chart($('#assignment-comparison-chart'), {
+        responsive: true,
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{},{}]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Assignment Averages Change Over Time'
+            }
+        },
+    });
+}
+
+function assignmentComparisonAnalysis(classID, classData, assignmentData) {
+    classData = classData.filter(function(classObject) { //Filters the array so it's only the given classID
+        return classObject.id == classID;
+    });
+    
+    assignmentData = assignmentData.filter(function(assignment) { //Filters the assignment so it's only the assignments in the class
+        return assignment.classID == classID;
+    });
+
+    var selectedAssignments = assignmentData.filter(function(selected) { //Filters the assignment so it's only the two selected assignments
+        return selected.id == $('#assignment-1').val() || selected.id == $('#assignment-2').val();
+    })
+    
+    var firstAssignmentScores = selectedAssignments[0].students.filter(function(students) { //Get all the graded students for assignment 1
+        return students.grades != -1;
+    });
+
+    var secondAssignmentScores = selectedAssignments[1].students.filter(function(students) { //Get all the graded students for assignment 2
+        return students.grades != -1;
+    });
+    
+    var topicLength1 = firstAssignmentScores[0].scoring.length;
+    var topicLength2 = secondAssignmentScores[0].scoring.length;
+    var topicScores1 = new Array(topicLength1);
+    var topicScores2 = new Array(topicLength2);
+    var topicList = [];
+    
+    for (var topicCount = 0; topicCount < topicLength1; topicCount++) { //Calculates average per topic
+        topicScores1[topicCount] = 0;
+        topicList.push(firstAssignmentScores[0].scoring[topicCount].topic);
+        firstAssignmentScores.forEach(function(assignment) {
+            topicScores1[topicCount] += (assignment.scoring[topicCount].score/firstAssignmentScores.length);
+        });
+    }
+    
+    for (var topicCount = 0; topicCount < topicLength2; topicCount++) { //Calculates average per topic
+        topicScores2[topicCount] = 0;
+        secondAssignmentScores.forEach(function(assignment) {
+            topicScores2[topicCount] += (assignment.scoring[topicCount].score /secondAssignmentScores.length);;
+        });
+    }
+    console.log(selectedAssignments[1].assignmentName)
+    assignmentComparisonChart.data.labels = topicList;
+    assignmentComparisonChart.data.datasets[0].label = selectedAssignments[0].assignmentName;
+    assignmentComparisonChart.data.datasets[0].data = topicScores1;
+    assignmentComparisonChart.data.datasets[1].label = selectedAssignments[1].assignmentName;
+    assignmentComparisonChart.data.datasets[1].data = topicScores2;
+    assignmentComparisonChart.update();
+    console.log(topicScores1)
+    console.log(topicScores2)
+    
     
 }
 

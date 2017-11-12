@@ -61,3 +61,8 @@ body {
     height: 40vh;
     width: 80vw;
 }
+
+#execute-analysis {
+    border-color: black;
+    color: black;
+}
