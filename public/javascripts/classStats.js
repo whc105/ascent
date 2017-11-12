@@ -10,6 +10,7 @@ $(function() {
     initializeCharts();
     var classData;
     var assignmentData;
+    var rubricData;
     $.ajax({ //Pulls the class data from the classes collectiion
         url: '/api/classes',
         method: 'GET',
@@ -31,13 +32,32 @@ $(function() {
             }
         });
     }).done(function() {
+        $.ajax({
+            url: '/api/rubrics',
+            method: 'GET',
+            success: function(response) {
+                rubricData = response;
+                rubricData.forEach(function(rubric) {
+                    $('#rubric-select').append($('<option>', {
+                        value: rubric.id,
+                        text: rubric.rubricName
+                    }));
+                });
+            }
+        });
+    }).done(function() {
         $('#class-list').change(function() {
             $('.charts').show();
             var classID = changeHeader();
             basicAnalysis(classID, classData, assignmentData);
         });
         $('#execute-analysis').click(function() {
-            assignmentComparisonAnalysis($(`#class-list`).val(), classData, assignmentData);
+            if ($('#assignment-1').val() == $('#assignment-2').val()) {
+                $('#same-assignment-error').show();
+            } else {
+                $('#same-assignment-error').hide();
+                assignmentComparisonAnalysis($(`#class-list`).val(), classData, assignmentData);
+            }
         });
     });
 });
@@ -62,12 +82,17 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
     });
     
     //Clears the assignment select and updates it with a new class assignments
-    $('.assignment-select option').remove();
-    assignmentData.forEach(function(assignment) {
-        $('.assignment-select').append($('<option>', {
-            value: assignment.id,
-            text: assignment.assignmentName
-        }));
+    $('#rubric-select').change(function() {
+        $('.assignment-select option').remove();
+        var rubricID = $('#rubric-select').val();
+        assignmentData.forEach(function(assignment) {
+            if (assignment.rubricID == rubricID){
+                $('.assignment-select').append($('<option>', {
+                    value: assignment.id,
+                    text: assignment.assignmentName
+                }));
+            }
+        });
     });
     
     //Pushes all the assignment names to the label
@@ -92,7 +117,6 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
             assignmentGrowthChart.data.labels.push(`${assignment.date} ${assignment.assignmentName}`);
             assignmentGrowthChart.data.datasets[0].data.push((assignment.avg * 100).toFixed(3));
         }
-
     });
     assignmentGrowthChart.update();
     
@@ -107,7 +131,9 @@ function initializeCharts() { //Initializes Charts
             labels: ['Students', 'Assignments', 'Teachers'],
             datasets: [{
                 data: [],
-                backgroundColor: ['rgba(40, 165, 255, 0.5)', 'rgba(255, 40, 101, 0.5)', 'rgba(255, 226, 40, 0.5)']
+                borderWidth: 1,
+                backgroundColor: ['rgba(40, 165, 255, 0.2)', 'rgba(255, 40, 101, 0.2)', 'rgba(255, 226, 40, 0.2)'],
+                borderColor: ['rgba(40, 165, 255, 1)', 'rgba(255, 40, 101, 1)', 'rgba(255, 226, 40, 1)']
             }]
         },
         options: {
@@ -127,6 +153,7 @@ function initializeCharts() { //Initializes Charts
             labels: [],
             datasets: [{
                 data: [],
+                borderWidth: 1,
                 backgroundColor: []
             }]
         },
@@ -189,7 +216,7 @@ function initializeCharts() { //Initializes Charts
         type: 'bar',
         data: {
             labels: [],
-            datasets: [{},{}]
+            datasets: [{borderWidth: 1},{borderWidth: 1}]
         },
         options: {
             maintainAspectRatio: false,
@@ -203,7 +230,7 @@ function initializeCharts() { //Initializes Charts
             },
             title: {
                 display: true,
-                text: 'Assignment Averages Change Over Time'
+                text: 'Multi-Assignment Topic Comparisons'
             }
         },
     });
@@ -220,7 +247,7 @@ function assignmentComparisonAnalysis(classID, classData, assignmentData) {
 
     var selectedAssignments = assignmentData.filter(function(selected) { //Filters the assignment so it's only the two selected assignments
         return selected.id == $('#assignment-1').val() || selected.id == $('#assignment-2').val();
-    })
+    });
     
     var firstAssignmentScores = selectedAssignments[0].students.filter(function(students) { //Get all the graded students for assignment 1
         return students.grades != -1;
@@ -235,31 +262,42 @@ function assignmentComparisonAnalysis(classID, classData, assignmentData) {
     var topicScores1 = new Array(topicLength1);
     var topicScores2 = new Array(topicLength2);
     var topicList = [];
-    
+    var backgroundColorT1 = [];
+    var backgroundColorT2 = [];
+    var borderColorT1 = [];
+    var borderColorT2 = [];
     for (var topicCount = 0; topicCount < topicLength1; topicCount++) { //Calculates average per topic
         topicScores1[topicCount] = 0;
         topicList.push(firstAssignmentScores[0].scoring[topicCount].topic);
         firstAssignmentScores.forEach(function(assignment) {
             topicScores1[topicCount] += (assignment.scoring[topicCount].score/firstAssignmentScores.length);
         });
+        topicScores1[topicCount] = (topicScores1[topicCount]*100).toFixed(3);
+        backgroundColorT1.push('rgba(96, 205, 112, 0.2)');
+        borderColorT1.push('rgba(96, 205, 112, 1)');
     }
+    
     
     for (var topicCount = 0; topicCount < topicLength2; topicCount++) { //Calculates average per topic
         topicScores2[topicCount] = 0;
         secondAssignmentScores.forEach(function(assignment) {
-            topicScores2[topicCount] += (assignment.scoring[topicCount].score /secondAssignmentScores.length);;
+            topicScores2[topicCount] += (assignment.scoring[topicCount].score /secondAssignmentScores.length);
         });
+        topicScores2[topicCount] = (topicScores2[topicCount]*100).toFixed(3);
+        backgroundColorT2.push('rgba(78, 129, 223, 0.2)');
+        borderColorT2.push('rgba(78, 129, 223, 1)');
     }
-    console.log(selectedAssignments[1].assignmentName)
+
     assignmentComparisonChart.data.labels = topicList;
     assignmentComparisonChart.data.datasets[0].label = selectedAssignments[0].assignmentName;
     assignmentComparisonChart.data.datasets[0].data = topicScores1;
+    assignmentComparisonChart.data.datasets[0].backgroundColor = backgroundColorT1;
+    assignmentComparisonChart.data.datasets[0].borderColor = borderColorT1;
     assignmentComparisonChart.data.datasets[1].label = selectedAssignments[1].assignmentName;
     assignmentComparisonChart.data.datasets[1].data = topicScores2;
+    assignmentComparisonChart.data.datasets[1].backgroundColor = backgroundColorT2;
+    assignmentComparisonChart.data.datasets[1].borderColor = borderColorT2;
     assignmentComparisonChart.update();
-    console.log(topicScores1)
-    console.log(topicScores2)
-    
     
 }
 

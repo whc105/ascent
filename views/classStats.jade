@@ -20,12 +20,21 @@ block content
             .col-md-5#assignment-averages.chart-container
                 canvas#assignment-chart
         .row
-            div(align='left') Assignment Comparisons
+            .col-md-2#assignment-selection-comparison(align='left') Assignment Comparisons
+                br
+                select#rubric-select 
+                |Select a Rubric
                 br
                 select.assignment-select#assignment-1
-                |&nbsp
+                br
                 select.assignment-select#assignment-2
+                br
                 button.bttn-minimal.bttn-xs.bttn-default#execute-analysis Run Analysis
+                br
+                .alert.alert-warning.alert-dismissible#same-assignment-error(role='alert')
+                    strong Warning!
+                    |You can not have two of the same assignments
+
             .col-md-8#assignment-comparison.chart-container
                 canvas#assignment-comparison-chart
             br

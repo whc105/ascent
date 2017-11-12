@@ -11,6 +11,11 @@ body {
     text-decoration: underline;
 }
 
+#assignment-selection-comparison {
+    background-color: white;
+    border-radius: 10px;
+}
+
 .charts {
     display: none;
 }
@@ -21,6 +26,10 @@ body {
 
 #select {
     display: block;
+}
+
+#same-assignment-error {
+    display: none;
 }
 
 #class-list {
