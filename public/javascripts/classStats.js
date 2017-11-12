@@ -98,13 +98,14 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
     //Pushes all the assignment names to the label
     clearFields(assignmentAveragesChart);
     assignmentData.forEach(function(assignment) {
-        assignmentAveragesChart.data.labels.push(assignment.assignmentName);
         if ('avg' in assignment && assignment.avg != null) {
+            assignmentAveragesChart.data.labels.push(assignment.assignmentName);
             assignmentAveragesChart.data.datasets[0].data.push((assignment.avg * 100).toFixed(3));
-        } else {
-            assignmentAveragesChart.data.datasets[0].data.push(0);
         }
     });
+    var generatedRGBA = generateRGBA(assignmentData.length);
+    assignmentAveragesChart.data.datasets[0].backgroundColor = generatedRGBA;
+    assignmentAveragesChart.data.datasets[0].borderColor = generateRGBAPureAlpha(generatedRGBA);
     assignmentAveragesChart.update();
     
     //Sorts the assignments by date
@@ -320,4 +321,21 @@ function sortDate(assignmentData) {
         return a - b;
     });
     return assignmentData;
+}
+
+function generateRGBA(amount) { //Given an amount, return RGBA with alpha as .2
+    var backgroundColor = [];
+    for(var count = 0; count < amount; count++) {
+        var rgba = `rgba(${(Math.floor(Math.random()*255))}, ${(Math.floor(Math.random()*255))}, ${(Math.floor(Math.random()*255))}, 0.2)`;
+        backgroundColor.push(rgba);
+    }
+    return backgroundColor;
+}
+
+function generateRGBAPureAlpha(colorArray) { //Given an RGBA array, set return the same RGBA with alpha as 1
+    colorArray = colorArray.map(function(rgba) {
+        return rgba.substr(0, rgba.length-4) + '1)';
+    });
+    console.log(colorArray)
+    return colorArray;
 }
