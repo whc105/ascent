@@ -15,31 +15,37 @@ block content
                 h5#ratio
     div.charts
         .row
-            .col-md-4#general.chart-container
+            #general.chart-container
                 canvas#general-chart
-            .col-md-5#assignment-averages.chart-container
+            #assignment-averages.chart-container
                 canvas#assignment-chart
         .row
-            .col-md-2#assignment-selection-comparison(align='left') Assignment Comparisons
-                br
-                select#rubric-select 
-                |Select a Rubric
-                br
-                select.assignment-select#assignment-1
-                br
-                select.assignment-select#assignment-2
-                br
-                button.bttn-minimal.bttn-xs.bttn-default#execute-analysis Run Analysis
-                br
-                .alert.alert-warning.alert-dismissible#same-assignment-error(role='alert')
-                    strong Warning!
-                    |You can not have two of the same assignments
-
-            .col-md-8#assignment-comparison.chart-container
-                canvas#assignment-comparison-chart
-            br
-            br
-            br
+            .chart-container
+                #assignment-selection-comparison(align='left') Assignment Comparisons
+                    br
+                    |Select a Rubric &nbsp
+                    select#rubric-select 
+                    br
+                    select.assignment-select#assignment-1
+                    br
+                    select.assignment-select#assignment-2
+                    br
+                    button.bttn-minimal.bttn-xs.bttn-default#execute-analysis Run Analysis
+                    br
+                    .alert.alert-warning.alert-dismissible#same-assignment-error(role='alert')
+                        |Pick Two Different Assignments
+                #assignment-comparison
+                    canvas#assignment-comparison-chart
         .row
-            .col-md-5#assignment-growth.chart-container
-                canvas#assignment-growth-chart
+            .chart-container
+                #assignment-growth
+                    canvas#assignment-growth-chart
+                #growth-analysis
+                    h5#assignment-derivative
+                    |Pick Two Assignments to Compare Growth
+                    br
+                    select#start-assignment
+                    br
+                    select#end-assignment
+                    br
+                    button.bttn-minimal.bttn-xs.bttn-default#compare-derivative Compute Growth

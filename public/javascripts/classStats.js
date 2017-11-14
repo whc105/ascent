@@ -24,7 +24,7 @@ $(function() {
             });
         }
     }).done(function() {
-        $.ajax({
+        $.ajax({ //Pulls from assignment collection
             url: '/api/assignments',
             method: 'GET',
             success: function(response) {
@@ -32,7 +32,7 @@ $(function() {
             }
         });
     }).done(function() {
-        $.ajax({
+        $.ajax({ //Pulls from rubric collection
             url: '/api/rubrics',
             method: 'GET',
             success: function(response) {
@@ -59,6 +59,9 @@ $(function() {
                 assignmentComparisonAnalysis($(`#class-list`).val(), classData, assignmentData);
             }
         });
+        $('#compare-derivative').click(function() {
+            
+        });
     });
 });
 
@@ -75,7 +78,6 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
     generalStatisticsChart.update();
     
     $('#ratio').text(`${studentCount/teacherCount} Students Per Teacher`); //Calculates student to teacher ratio
-    
     //Filters all the assignment data
     assignmentData = assignmentData.filter(function(assignment) {
         return assignment.classID == classID;
@@ -97,6 +99,7 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
     
     //Pushes all the assignment names to the label
     clearFields(assignmentAveragesChart);
+    $('#start-assignment option').remove();
     assignmentData.forEach(function(assignment) {
         if ('avg' in assignment && assignment.avg != null) {
             assignmentAveragesChart.data.labels.push(assignment.assignmentName);
@@ -110,6 +113,7 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
     
     //Sorts the assignments by date
     assignmentData = sortDate(assignmentData);
+    var position = 0;
     
     //Calculates data for assignment growth chart
     clearFields(assignmentGrowthChart);
@@ -117,9 +121,43 @@ function basicAnalysis(classID, classData, assignmentData) { //General Stats
         if (assignment.avg != null) {
             assignmentGrowthChart.data.labels.push(`${assignment.date} ${assignment.assignmentName}`);
             assignmentGrowthChart.data.datasets[0].data.push((assignment.avg * 100).toFixed(3));
+            
+            $('#start-assignment').append($('<option>', {
+                value: position,
+                text: assignment.assignmentName
+            }));
         }
+        position++;
     });
     assignmentGrowthChart.update();
+    
+    //Calculates Mean Value Theorem where T = Days
+    var timeBetweenDates = new Date(assignmentData[assignmentData.length-1].date) - new Date(assignmentData[0].date);
+    timeBetweenDates = timeBetweenDates/86400000;
+    var gradeDifference = assignmentData[assignmentData.length-1].avg - assignmentData[0].avg;
+    $('#assignment-derivative').text(`Assignment Performance Growth: ${(gradeDifference/timeBetweenDates).toFixed(3)}`);
+    
+    $('#start-assignment').change(function() { //Finds all the available assignments after the date
+        $('#end-assignment option').remove();
+        for (var count = $('#start-assignment').val(); count < assignmentData.length; count++) {
+            if (assignmentData[count].avg != null && count != $('#start-assignment').val()) {
+                $('#end-assignment').append($('<option>', {
+                    value: count,
+                    text: assignmentData[count].assignmentName
+                }));
+            }
+        }
+        
+        $('#end-assignment').show();
+        $('#compare-derivative').show();
+        
+        $('#compare-derivative').click(function() {
+            timeBetweenDates = new Date(assignmentData[$('#end-assignment').val()].date) - new Date(assignmentData[$('#start-assignment').val()].date);
+            timeBetweenDates = timeBetweenDates/86400000;
+            var gradeDifference = assignmentData[$('#end-assignment').val()].avg - assignmentData[$('#start-assignment').val()].avg;
+            $('#assignment-derivative').text(`Assignment Performance Growth: ${(gradeDifference/timeBetweenDates).toFixed(3)}`);
+        });
+    });
     
     
 }
@@ -176,6 +214,29 @@ function initializeCharts() { //Initializes Charts
             }
         }
     });
+    assignmentComparisonChart = new Chart($('#assignment-comparison-chart'), {
+        responsive: true,
+        maintainAspectRatio: false,
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{borderWidth: 1},{borderWidth: 1}]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Multi-Assignment Topic Comparisons'
+            }
+        },
+    });
     assignmentGrowthChart = new Chart($('#assignment-growth-chart'), {
         responsive: true,
         type: 'line',
@@ -209,29 +270,6 @@ function initializeCharts() { //Initializes Charts
             },
             legend: {
                 display: false
-            }
-        },
-    });
-    assignmentComparisonChart = new Chart($('#assignment-comparison-chart'), {
-        responsive: true,
-        type: 'bar',
-        data: {
-            labels: [],
-            datasets: [{borderWidth: 1},{borderWidth: 1}]
-        },
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                yAxes: [{
-                    display: true,
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            },
-            title: {
-                display: true,
-                text: 'Multi-Assignment Topic Comparisons'
             }
         },
     });
@@ -336,6 +374,5 @@ function generateRGBAPureAlpha(colorArray) { //Given an RGBA array, set return t
     colorArray = colorArray.map(function(rgba) {
         return rgba.substr(0, rgba.length-4) + '1)';
     });
-    console.log(colorArray)
     return colorArray;
 }

@@ -5,6 +5,8 @@ body {
 .chart-container {
     background-color: white;
     border-radius: 10px;
+    display: inline-block;
+    margin: 10px;
 }
 
 #class-name {
@@ -12,8 +14,8 @@ body {
 }
 
 #assignment-selection-comparison {
-    background-color: white;
-    border-radius: 10px;
+    vertical-align: top;
+    display: inline-block;
 }
 
 .charts {
@@ -48,30 +50,42 @@ body {
     display: inline-block;
     height: 30vh;
     width: 30vw;
-    margin: 12px;
 }
 
 #assignment-averages {
     display: inline-block;
     height: 30vh;
     width: 30vw;
-    margin: 12px;
 }
 
 #assignment-comparison {
     display: inline-block;
     height: 30vh;
     width: 30vw;
-    margin: 12px;
+}
+
+#growth-analysis {
+    display: inline-block;
+    vertical-align: top;
 }
 
 #assignment-growth {
     display: inline-block;
     height: 40vh;
-    width: 80vw;
+    width: 70vw;
 }
 
 #execute-analysis {
     border-color: black;
     color: black;
+}
+
+#compare-derivative {
+    display: none;
+    border-color: black;
+    color: black;
+}
+
+#end-assignment {
+    display: none;
 }
