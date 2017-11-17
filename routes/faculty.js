@@ -6,13 +6,11 @@ const keys = require('../config/config.js').keys;
 const url = keys.mongoURI;
 
 
-router.get("/", function(req, res)
-{
+router.get("/", function(req, res) {
    res.render("faculty"); 
 });
 
-router.get("/newFaculty", function(req, res)
-{
+router.get("/newFaculty", function(req, res) {
    res.render("newFaculty"); 
 });
 

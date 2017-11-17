@@ -1,0 +1,12 @@
+extends layout
+block content
+    br
+    br
+    form(action='/keyGenerator', method='POST')
+        input(type="number", placeholder="Amount of Keys", name="keyCount", required)
+        br
+        input(type="number", placeholder="Permission Level", name="level", required)
+        br
+        input(placeholder="School Name", name="school", required)
+        br
+        button(type='submit') Submit

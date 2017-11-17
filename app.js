@@ -17,6 +17,7 @@ var statistics = require('./routes/statistics');
 var classStats = require('./routes/classStats');
 var assignmentStats = require('./routes/assignmentStats');
 var faculty = require('./routes/faculty');
+var keyGenerator = require('./routes/keyGenerator');
 
 const MongoClient = require('mongodb').MongoClient;
 const keys = require('./config/config.js').keys;
@@ -80,6 +81,7 @@ app.use('/statistics', statistics);
 app.use('/classStats', classStats);
 app.use('/assignmentStats', assignmentStats);
 app.use('/faculty', faculty);
+app.use('/keyGenerator', keyGenerator);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

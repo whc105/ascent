@@ -20,22 +20,25 @@ router.get('/', function(req, res, next) {
     res.render('signUp');
 });
 
-router.post('/', function(req, res){
-    var permissionLevel = -1;
-    if (req.body.key === 'hSkfgruIB0') {
-        permissionLevel = 3;
-    } else if (req.body.key === 'wP0zshIQNL') {
-        permissionLevel = 2;
-    } else if (req.body.key === '34XeKOgOa6') {
-        permissionLevel = 1;
-    } else if (req.body.key === 'SfnlaTKH2J') {
-        permissionLevel = 0;
-    } else {
-        res.send('The key you submitted is wrong');
-        return;
-    }
-    var newAccount = {email: req.body.email, password: req.body.password, schoolName: req.body.schoolName, permissionLevel: permissionLevel};
-    createAccount(res, newAccount);
+router.post('/', function(req, res) {
+    const keysDB = db.collection('keys');
+    
+    keysDB.find({key: req.body.key}).toArray(function(err, result) {
+        if (err) {
+            console.log(err);
+        } else if (result.length == 0) {
+            res.send('The key you submitted is wrong');
+            return;
+        } else {
+            var newAccount = {email: req.body.email, password: req.body.password, schoolName: req.body.schoolName, permissionLevel: result[0].key};
+            createAccount(res, newAccount);
+            keysDB.deleteMany({key:result[0].key}, function(err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+    });
 });
 
 function createAccount(res, accountData) {
