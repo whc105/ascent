@@ -17,6 +17,8 @@ module.exports = app => {
         }
     });
     
+    
+    
     app.post('/login', passport.authenticate('local', {
         successRedirect: '/', failureRedirect: '/login'
         }), (req, res) => {
@@ -27,7 +29,7 @@ module.exports = app => {
     
     app.get('/auth/logout', (req, res) => {
         if(req.user) {
-            console.log(`user ${req.user.email} logged out`)
+            console.log(`user ${req.user.email} logged out`);
             req.logout();
             res.redirect('/');
         }
