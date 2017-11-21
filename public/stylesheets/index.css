@@ -1,60 +1,123 @@
 body {
-    background-image: url('/images/classroom.jpg');
-    background-size: cover;         
-    background-repeat: no-repeat;
+    background-color: #0055C2;/*#A39DA3*/
+}
+
+section {
+    width: 95%;
+    height: auto;
+    
+    position: absolute;
+
+    background-color: #eff8ff; /*#0E1E3D0*/
+
+    margin-bottom: 2%;
+    margin-top: 1%;
+    padding: 2%;
+}
+
+.welcome-loginbttn {
+    background-color: transparent; /*#28384E*/
+    width: 80%;
+    height: auto;
+    
+    position: relative;
+    left: 10%;
+    
+    padding: 1%;
+    margin-bottom: 2%;
+}
+
+.btn-group-vertical {
+    margin: 1%;
+    position: relative;
+    left: 46%;
+}
+
+.left-Analytics {
+    width: 80%;
+    height: auto;
+    
+    padding: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 2%;
+    
+    background-color: #75beff; /*#8A919A*/
+    
+    position: relative;
+    left: 0%;
+}
+
+
+.right-Design {
+    width: 80%;
+    height: auto;
+    
+    padding: 2%;
+    margin-bottom: 2%;
+    
+    background-color: #577DBE;
+    
+    position: relative;
+    left: 20%;
+}
+
+.left-Progress {
+    width: 80%;
+    height: auto;
+    
+    padding: 2%;
+    margin-bottom: 2%;
+    
+    background-color: #94B8D2;
+    
+    position: relative;
+    left: 0%;
 }
 
 .title.animated.fadeIn{
-    color:white;
-    text-shadow: 2px 2px 2px #000;
+    color: #0055C2;
+    text-align: center;
+    padding-left: 2%;
     
 }
 
-#subtitle{
-   text-shadow: 1px 1px 1px #000;
-   color:white;
+article h4{
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 30px;
+    color: #1d1d1e; 
 }
 
-.item {
-    height: 100%;
-    width: 100%;
+article h5 {
+    font-weight: bold;
+    font-size: 23px;
+    font-family: Arial;
+    color: #1d1d1e; 
 }
 
-#carousel.carousel.slide {
-    height: 100%;
-    width: 20%;
-}
-
-.row.featurette {
-    color: white;
-}
-
-.text-muted {
-    color: white;
-}
-
-#footer {
-    display: none;
+article p {
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 20px;
+    color: #1d1d1e; 
 }
 
 h1 {
+    font-size: 60px;
     font-family: Helvetica;
+    color: #1d1d1e; 
 }
 
-img {
-    border-style: solid;
-    border-color: black;
-    border-width: 5px;
+article img{
+    width: 20%;
+    height:  auto;
+    
+    float: right;
 }
 
-.analysis {
-    width: 60%;
+.btn-fancy {
+    
 }
 
-.design {
-    width: 40%;
-}
 
-#LogInOut {
-    outline: none;
-}
+

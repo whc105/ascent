@@ -2,28 +2,27 @@ extends layout
 block content
     script(src='/javascripts/login.js')
     link(rel='stylesheet', href='/stylesheets/login.css')
-    div.container
-        #header
-            div(align='center')
-                h3 Log In
-        #content
-            div(align='center')
-                form(action ='/login', method='POST')
-                    p#demo
-                    br
-                    span Email
-                    div.input-group.margin-bottom-sm.col-sm-3
-                        span.input-group-addon
-                            i.fa.fa-id-card-o(aria-hidden='true')
-                        input#input_username(class = 'form-control', type="text", placeholder="Email", name="username", required)
-                    br
-                    span Password
-                    div.input-group.margin-bottom-sm.col-sm-3
-                        span.input-group-addon
-                            i.fa.fa-key(aria-hidden='true')
-                        input#input_password(class = 'form-control', type="password", placeholder="Password", name="password", required)
-                    br
-                    br
-                    button.bttn-bordered.bttn-md.bttn-default(id='log-in', type='submit') Log In
+    body
+        section
+          .mainBox
+            .userNameLogin
+              h5 Login with Username
+              form(action='/login', method='POST')
+                .input-group.margin-bottom-sm.col-sm-3.input-group-addon.fa.fa-id-card-o.
+                i(aria-hidden='true')
+                input#input_username.form-control(type='text', placeholder='Email', name='username', required='required')
+                
                 br
-                button.bttn-bordered.bttn-md.bttn-default(id='log-in-google', type='button') Log In With Google
+                
+                .input-group.margin-bottom-sm.col-sm-3.input-group-addon.fa.fa-key
+                span
+                    i(aria-hidden='true')
+                input#input_password.form-control(type='password', placeholder='Password', name='password', required='required')
+                br
+                br
+                
+                button#log-in.bttn-bordered.bttn-md.bttn-default.button-Fancy(type='submit') Submit
+
+            .login-google
+              .goog-Button
+                button#log-in-google.bttn-bordered.bttn-md.bttn-default.button-Fancy(type='button') Log In With Google
