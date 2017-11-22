@@ -59,9 +59,6 @@ $(function() {
                 assignmentComparisonAnalysis($(`#class-list`).val(), classData, assignmentData);
             }
         });
-        $('#compare-derivative').click(function() {
-            
-        });
     });
 });
 
