@@ -8,6 +8,8 @@ block content
         h2 Assignment Statistics 
         select#assignmentList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='changeChart()')
         div.general-stats
+            h5#rubric-used
+            h5#completion-rate
             h5#assignment-avg
         .row
             div#topic-chart.chart-container(align='left')
@@ -59,5 +61,5 @@ block content
             div#scoring-avg-chart.chart-container(align='left')
                 canvas#avg-chart
             div#topic-avg-chart.chart-container(align='middle')
-                select#topicList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='getTopics()')
+                select#topicList(class = 'bttn-bordered bttn-xs bttn-primary', onChange='drawStudentChart()')
                 canvas#topicAvg-chart

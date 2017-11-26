@@ -7,6 +7,10 @@ var gradedStudentsChart;
 var studentPerformanceChart;
 var studentAvgChart;
 var topicAvgChart;
+var rubricUsed;
+//variables used to calculate completion rate
+var completedAssignmentNum = 0;
+var uncompletedAssignmentNum = 0;
 
 var assignments = [];
 $(function() {
@@ -20,14 +24,29 @@ $(function() {
     getAssignmentData();
 });
 
+// function getRubricUsed(){
+//     $.ajax({
+//         url:'/api/rubrics',
+//         method: 'GET',
+//         success: function(response) {
+//             studentProfile = response;
+//             console.log("The ajax call for student profile returns ", studentProfile);
+//             //append the html header with the correct rubric
+//             $('#rubric-used').append($('<option>', {
+//                 value: 'default',
+//                 text : 'Select an assignment'
+//             }));
+//         }
+//     });  
+// }
+
 function getStudentProfile() { //Gets student data
     $.ajax({
         url:'/api/students',
         method: 'GET',
         success: function(response) {
             studentProfile = response;
-            console.log("Here is the student profile data");
-            console.log(studentProfile);
+            console.log("The ajax call for student profile returns ", studentProfile);
         }
     });
 }
@@ -38,8 +57,7 @@ function getAssignmentData() {
         method: 'GET',
         success: function(response) {
             assignments = response;
-            console.log("This is the assignment data");
-            console.log(assignments);
+            console.log("The ajax call for assignments returns ", assignments);
             $('#assignmentList').append($('<option>', {
                 value: 'default',
                 text : 'Select an assignment'
@@ -242,6 +260,7 @@ function changeChart() { //Updates the chart with new assignment
         for (var topics = 0; topics < assignmentStudents[0].scoring.length; topics++) {
             topicsList.push(assignmentStudents[0].scoring[topics].topic);
         }
+        //current position
         getTopics(topicsList);
         overallAssignmentAverage(assignmentStudents);
         getAverage(assignmentStats);
@@ -383,8 +402,15 @@ function overallAssignmentAverage(studentData) {
         if (studentData[count].grades != -1) {
             gradedAvg = gradedAvg + studentData[count].grades;
             gradedCount++;
+            completedAssignmentNum++;
+        }
+        else{
+            uncompletedAssignmentNum++;
         }
     }
+    var tempTotal = completedAssignmentNum+uncompletedAssignmentNum;
+    var completionRate = (completedAssignmentNum/tempTotal).toFixed(5) * 100;
+    $('#completion-rate').text('The completion rate is ' + completionRate + '%');
     gradedAvg = (gradedAvg/gradedCount).toFixed(5) * 100;
     $('#assignment-avg').text('Assignment average is ' + gradedAvg + '%');
     
@@ -416,7 +442,7 @@ function calculateGraded(studentData, topicsList) {
         } else {
             graded++;
         }
-    }
+    }  
     gradedStudentsChart.data.datasets[0].data = [graded, ungraded];
     gradedStudentsChart.update();
     
@@ -458,14 +484,80 @@ function drawStudentPerformance() {
     studentPerformanceChart.update();
 }
 
-function getTopics(topicsList){ //function used to update the topic select for the topic graph
+
+//update the select drop down for the topic graph
+function getTopics(topicsList){
     var topicArray = topicsList;
+    
+    //add the default topic select
+    $('#topicList').append($('<option>',{
+        value: 'Default',
+        text : "Select a topic"}));
+    
     //go through the topic array and update the select
-    for(var count = 0;count < topicArray.length; count++){
+    for(var count = 0; count < topicArray.length; count++){
         $('#topicList').append($('<option>', {
         value: topicArray[count],
         text : topicArray[count]
         }));
     }
-    console.log('this is in development');
+}
+
+//update the graph based on what topic was selected
+function drawStudentChart(){ 
+    var topicId = $('#topicList').val();
+    console.log("topicId is ", topicId);
+    var assignmentVal = $('#assignmentList').val();
+    console.log("assignmentVal is ", assignmentVal);
+    var assignmentsList = assignments
+    console.log("assignmentsList is ", assignmentsList);
+    var studentObjectArray = [];
+    var score = [];
+    
+//THIS IS WHAT I COPIED BELOW
+    var assignmentPos = function() { //Gets position of assignment
+        for (var count = 0; count < assignmentsList.length; count++) {
+            if (assignmentsList[count].assignmentName === assignmentVal) {
+                return count;
+            }
+        }
+    };
+    
+    
+    var studentList = assignmentsList[assignmentPos()].students;
+    console.log("The studentList is ", studentList);
+    
+    for (var count = 0; count < studentList.length; count++) {
+        var tempStudentObject = {};
+        tempStudentObject.id = studentList.id;
+        
+        if (tempStudentObject === topicId) {
+            var studentScore = studentList[count].scoring;
+            console.log("THIS IS THE STUDENT SCORE ",studentScore);
+            //go through scoring and check the score for specified topic
+            for(var temp = 0; temp<studentScore.length; count++){
+                var topicName = studentScore[temp].topic;
+                console.log("THIS IS THE TOPIC NAME",topicName);
+                var topicScore = studentScore[temp].score;
+                console.log(topicScore);
+                if(topicName == topicId){
+                    var studentObject = {};
+                    studentObject.id = studentId;
+                    studentObject.score = topicScore;
+                    score.push(studentObject);
+                    console.log('TRIGGERED');
+                }
+            }
+        }
+    }   
+    
+    var displayScore = [];
+    console.log("THE SCORE VARIABLE IS",score);
+
+    
+    console.log("THE DISPLAY SCORE IS", displayScore);
+     topicAvgChart.data.datasets[1].data = score;
+      topicAvgCharttopicAvgChart 
+      topitopicAvgChart
+
 }
