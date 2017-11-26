@@ -503,61 +503,60 @@ function getTopics(topicsList){
     }
 }
 
-//update the graph based on what topic was selected
-function drawStudentChart(){ 
-    var topicId = $('#topicList').val();
-    console.log("topicId is ", topicId);
-    var assignmentVal = $('#assignmentList').val();
-    console.log("assignmentVal is ", assignmentVal);
-    var assignmentsList = assignments
-    console.log("assignmentsList is ", assignmentsList);
-    var studentObjectArray = [];
-    var score = [];
+// //update the graph based on what topic was selected
+// function drawStudentChart(){ 
+//     var topicId = $('#topicList').val();
+//     console.log("topicId is ", topicId);
+//     var assignmentVal = $('#assignmentList').val();
+//     console.log("assignmentVal is ", assignmentVal);
+//     var assignmentsList = assignments
+//     console.log("assignmentsList is ", assignmentsList);
+//     var studentObjectArray = [];
+//     var score = [];
     
-//THIS IS WHAT I COPIED BELOW
-    var assignmentPos = function() { //Gets position of assignment
-        for (var count = 0; count < assignmentsList.length; count++) {
-            if (assignmentsList[count].assignmentName === assignmentVal) {
-                return count;
-            }
-        }
-    };
+//     var assignmentPos = function() { //Gets position of assignment
+//         for (var count = 0; count < assignmentsList.length; count++) {
+//             if (assignmentsList[count].assignmentName === assignmentVal) {
+//                 return count;
+//             }
+//         }
+//     };
     
     
-    var studentList = assignmentsList[assignmentPos()].students;
-    console.log("The studentList is ", studentList);
+//     var studentList = assignmentsList[assignmentPos()].students;
+//     console.log("The studentList is ", studentList);
     
-    for (var count = 0; count < studentList.length; count++) {
-        var tempStudentObject = {};
-        tempStudentObject.id = studentList.id;
+//     for (var count = 0; count < studentList.length; count++) {
+//         var tempStudentObject = {};
+//         tempStudentObject.id = studentList.id;
         
-        if (tempStudentObject === topicId) {
-            var studentScore = studentList[count].scoring;
-            console.log("THIS IS THE STUDENT SCORE ",studentScore);
-            //go through scoring and check the score for specified topic
-            for(var temp = 0; temp<studentScore.length; count++){
-                var topicName = studentScore[temp].topic;
-                console.log("THIS IS THE TOPIC NAME",topicName);
-                var topicScore = studentScore[temp].score;
-                console.log(topicScore);
-                if(topicName == topicId){
-                    var studentObject = {};
-                    studentObject.id = studentId;
-                    studentObject.score = topicScore;
-                    score.push(studentObject);
-                    console.log('TRIGGERED');
-                }
-            }
-        }
-    }   
+//         if (tempStudentObject === topicId) {
+//             var studentScore = studentList[count].scoring;
+//             console.log("THIS IS THE STUDENT SCORE ",studentScore);
+//             //go through scoring and check the score for specified topic
+//             for(var temp = 0; temp<studentScore.length; count++){
+//                 var topicName = studentScore[temp].topic;
+//                 console.log("THIS IS THE TOPIC NAME",topicName);
+//                 var topicScore = studentScore[temp].score;
+//                 console.log(topicScore);
+//                 if(topicName == topicId){
+//                     var studentObject = {};
+//                     studentObject.id = studentId;
+//                     studentObject.score = topicScore;
+//                     score.push(studentObject);
+//                     console.log('TRIGGERED');
+//                 }
+//             }
+//         }
+//     }   
     
-    var displayScore = [];
-    console.log("THE SCORE VARIABLE IS",score);
+//     var displayScore = [];
+//     console.log("THE SCORE VARIABLE IS",score);
 
     
-    console.log("THE DISPLAY SCORE IS", displayScore);
-     topicAvgChart.data.datasets[1].data = score;
-      topicAvgCharttopicAvgChart 
-      topitopicAvgChart
+//     console.log("THE DISPLAY SCORE IS", displayScore);
+//      topicAvgChart.data.datasets[1].data = score;
+//       topicAvgCharttopicAvgChart 
+//       topitopicAvgChart
 
-}
+// }
