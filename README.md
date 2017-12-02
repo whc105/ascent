@@ -20,3 +20,6 @@ Login, Key Generators, Database, API, Charts, and Front-End Academic Analysis
 https://github.com/hassan3095
 <br>
 Front-Page and Login-Page
+
+
+Special thanks to https://github.com/timmyichen for advising us on MongoDB and NodeJS
