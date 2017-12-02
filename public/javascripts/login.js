@@ -2,6 +2,6 @@
 
 $(function() {
     $('#log-in-google').on('click', function() {
-        window.location.replace('https://ascent-.herokuapp.com/auth/google');
+        window.location.replace('https://ascents.herokuapp.com/auth/google');
     });
 });
