@@ -12,10 +12,10 @@ Password: tester
 
 
 Contributors
-<hr>
 https://github.com/hassan3095
 <br>
 Front-Page and Login-Page
 <hr>
 https://github.com/whc105/ascent
-Login
+<br>
+Login, Key Generators, Database, API, Charts, and Front-End Academic Analysis
