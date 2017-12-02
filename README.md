@@ -2,7 +2,7 @@
 Student Analytics Project
 
 Access the here.
-https://ascent-.herokuapp.com/
+https://ascents.herokuapp.com/
 
 Login Information
 <br>
