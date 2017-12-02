@@ -1,5 +1,6 @@
 /node_modules
 /config/.devKeys.js
+/config/.prodKeys.js
 collectionStructures.json
 cert.pem
 Suggestions
