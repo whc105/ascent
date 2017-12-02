@@ -1,4 +1,4 @@
-# ascent
+# Ascent
 Student Analytics Project
 
 Access the here.
