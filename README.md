@@ -15,7 +15,6 @@ Contributors
 <hr>
 
 #### [Wei Huan's Github](https://github.com/whc105/ascent)
-<br>
 Login, Key Generators, Database, API, Charts, Rubric Creator, Search, and Front-End Academic Analysis
 <hr>
 
