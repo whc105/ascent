@@ -20,6 +20,7 @@ Login, Key Generators, Database, API, Charts, Rubric Creator, Search FUnctionali
 
 #### [Mirjan Neza's Github](https://github.com/mirjanneza/ascent)
 Search Functionality, Front-End General Statistics
+<hr>
 
 #### [Muhammad Hassan's Github](https://github.com/hassan3095)
 Front-Page and Login-Page
