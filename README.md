@@ -18,11 +18,11 @@ Contributors
 * Login
 * Key Generators
 * Database using Normalized Data Models
-* API
+* API for calling database using AJAX
 * Charts
 * Rubric Creator and Search Functionality
 * Front-End Assignment/Class Analysis
-* 
+* Google OAuth 2.0
 <hr>
 
 #### [Mirjan Neza's Github](https://github.com/mirjanneza/ascent)
