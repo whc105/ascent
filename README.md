@@ -23,6 +23,8 @@ Contributors
 * Rubric Creator and Search Functionality
 * Front-End Assignment/Class Analysis
 * Google OAuth 2.0
+* Basic Bootstrap
+* Basic CSS
 <hr>
 
 #### [Mirjan Neza's Github](https://github.com/mirjanneza/ascent)
