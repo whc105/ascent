@@ -84,7 +84,7 @@ app.use('/statistics', requireLogin, statistics);
 app.use('/classStats', requireLogin, classStats);
 app.use('/assignmentStats', requireLogin, assignmentStats);
 app.use('/faculty', requireLogin, faculty);
-app.use('/keyGenerator', requireLogin, keyGenerator);
+app.use('/keyGenerator', keyGenerator);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
