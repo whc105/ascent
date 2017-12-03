@@ -17,11 +17,12 @@ Contributors
 #### [Wei Huan Chen's Github](https://github.com/whc105/ascent)
 * Login
 * Key Generators
-* Database
+* Database using Normalized Data Models
 * API
 * Charts
 * Rubric Creator and Search Functionality
 * Front-End Assignment/Class Analysis
+* 
 <hr>
 
 #### [Mirjan Neza's Github](https://github.com/mirjanneza/ascent)
